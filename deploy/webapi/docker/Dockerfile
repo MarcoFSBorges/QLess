@@ -1,14 +1,10 @@
-# Use an official OpenJDK 17 runtime as a parent image
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk-alpine AS build
+WORKDIR /backend/jvm/webapi
+COPY ../../../backend/jvm/webapi /backend/jvm/webapi
+RUN ./gradlew clean build --no-daemon
 
-# Set the working directory to /app
-WORKDIR ../../../backend/jvm/webapi
-
-# Copy the Spring Boot JAR file to the container
-COPY build/libs/webapi.jar .
-
-# Expose the port that the Spring Boot app listens on
+FROM openjdk:17-jdk-alpine
+WORKDIR /app
+COPY --from=build /backend/jvm/webapi/build/libs/webapi.jar webapi.jar
 EXPOSE 8080
-
-# Run the Spring Boot app when the container starts
 CMD ["java", "-jar", "webapi.jar"]
