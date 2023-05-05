@@ -26,7 +26,7 @@ SET employees = array_append(employees, 1)
 where name = 'Documentação';
 
 UPDATE EMPLOYEE
-SET team_id = 1, team_name = 'Documentação'
+SET team_id = 1
 where employee_id = 1;
 
 
@@ -35,7 +35,7 @@ SET employees = array_append(employees, 2)
 where name = 'Inscrições';
 
 UPDATE EMPLOYEE
-SET team_id = 2, team_name = 'Inscrições'
+SET team_id = 2
 where employee_id = 2;
 
 
@@ -44,7 +44,7 @@ SET employees = array_append(employees, 3)
 where name = 'Inscrições';
 
 UPDATE EMPLOYEE
-SET team_id = 2, team_name = 'Inscrições'
+SET team_id = 2
 where employee_id = 3;
 
 
@@ -53,7 +53,7 @@ SET employees = array_append(employees, 4)
 where name = 'Tesouraria'; 
 
 UPDATE EMPLOYEE
-SET team_id = 3, team_name = 'Tesouraria'
+SET team_id = 3
 where employee_id = 4;
 
 
@@ -62,7 +62,7 @@ SET employees = array_append(employees, 5)
 where name = 'Tesouraria';
 
 UPDATE EMPLOYEE
-SET team_id = 3, team_name = 'Tesouraria'
+SET team_id = 3
 where employee_id = 5;
 
 --------------------------------------------------------------------------------------------------------------------
