@@ -5,7 +5,7 @@ RUN apt-get install openjdk-17-jdk -y
 
 COPY ../../../backend/jvm/webapi .
 
-RUN ./gradlew clean build --no-cache --no-daemon
+RUN ./gradlew clean build --no-daemon
 
 
 FROM openjdk:17-jdk-slim
