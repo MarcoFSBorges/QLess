@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+	id("org.openapi.generator") version "6.5.0"
 	id("org.springframework.boot") version "3.0.6"
 	id("io.spring.dependency-management") version "1.1.0"
 	kotlin("jvm") version "1.7.22"
@@ -21,10 +22,9 @@ repositories {
 	mavenCentral()
 }
 
-extra["springCloudAzureVersion"] = "5.0.0"
-extra["testcontainersVersion"] = "1.17.6"
-
 dependencies {
+
+	implementation("org.openapitools:openapi-generator:${property("openApiGeneratorVersion")}")
 	//implementation("org.springframework.boot:spring-boot-starter-batch")
 	implementation("org.springframework.boot:spring-boot-starter-hateoas")
 	implementation("org.springframework.boot:spring-boot-starter-mail")
@@ -53,6 +53,12 @@ dependencyManagement {
 		mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
 		mavenBom("com.azure.spring:spring-cloud-azure-dependencies:${property("springCloudAzureVersion")}")
 	}
+
+}
+
+configurations.all{
+	exclude(group = "org.apache.logging.log4j", module = "log4j-to-slf4j")
+	exclude(group = "ch.qos.logback", module = "logback-classic")
 }
 
 tasks.withType<KotlinCompile> {
@@ -64,4 +70,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+openApiGenerate{
+	generatorName.set("kotlin")
+	inputSpec.set("$rootDir/src/main/resources/openapi.yaml")
+	outputDir.set("$buildDir")
 }
