@@ -76,4 +76,5 @@ openApiGenerate{
 	generatorName.set("kotlin")
 	inputSpec.set("$rootDir/src/main/resources/openapi.yaml")
 	outputDir.set("$buildDir")
+	packageName.set("pt.isel.leic.ps.qless.webapi")
 }
