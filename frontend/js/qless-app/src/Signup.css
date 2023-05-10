@@ -1,0 +1,49 @@
+.formtitle {
+    font-size: 25px
+}
+
+.flex-containerv2{
+    margin-left: 5px;
+    display: flex;
+    column-gap: 20px;  /* Set a gap of 20px */
+    align-items: flex-start;
+}
+
+.signupbtnv2 {
+    width: 80px;
+    font-size: small;
+    border-color: black;
+}
+    
+.loginbtnv2 {
+    width:80px;
+    font-size: small;
+    border-color: black;
+    margin-right: 60px
+}
+
+.inputform {
+    width: 220px;
+    height: 25px;
+}
+
+
+.inputlabeltxt {
+    font-size: small;
+    padding-right: 170px;
+}
+
+.inputlabeltxtv2 {
+    font-size: small;
+    padding-right: 190px;
+}
+
+.noacctxt {
+    font-size: x-small;
+    padding-right: 125px;
+}
+
+.hasacctxt {
+    font-size: x-small;
+    padding-right: 125px;
+}
