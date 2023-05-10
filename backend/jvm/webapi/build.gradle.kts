@@ -4,12 +4,14 @@ plugins {
 	id("org.openapi.generator") version "6.5.0"
 	id("org.springframework.boot") version "3.0.6"
 	id("io.spring.dependency-management") version "1.1.0"
+	id("org.jetbrains.kotlin.plugin.jpa") version "1.8.21"
+	id("org.jetbrains.kotlin.plugin.allopen") version "1.8.21"
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
 }
 
 group = "pt.isel.leic.ps.qless"
-version = ""
+version = "1.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
@@ -25,6 +27,10 @@ repositories {
 dependencies {
 
 	implementation("org.openapitools:openapi-generator:${property("openApiGeneratorVersion")}")
+	implementation("org.flywaydb:flyway-core:9.8.1")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin:1.8.21")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
 	//implementation("org.springframework.boot:spring-boot-starter-batch")
 	implementation("org.springframework.boot:spring-boot-starter-hateoas")
 	implementation("org.springframework.boot:spring-boot-starter-mail")
@@ -73,8 +79,10 @@ tasks.withType<Test> {
 }
 
 openApiGenerate{
-	generatorName.set("kotlin")
+	generatorName.set("kotlin-spring")
 	inputSpec.set("$rootDir/src/main/resources/openapi.yaml")
-	outputDir.set("$buildDir")
+	outputDir.set("C:\\Users\\afons\\Desktop\\QLess\\QLess\\backend\\jvm\\api")
 	packageName.set("pt.isel.leic.ps.qless.webapi")
+
+
 }
