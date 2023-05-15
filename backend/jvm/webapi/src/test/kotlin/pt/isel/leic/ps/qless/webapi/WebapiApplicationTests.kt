@@ -8,7 +8,6 @@ class WebapiApplicationTests {
 
 	@Test
 	fun contextLoads() {
-
 	}
 
 }

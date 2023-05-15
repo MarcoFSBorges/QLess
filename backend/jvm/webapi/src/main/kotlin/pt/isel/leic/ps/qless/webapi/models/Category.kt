@@ -9,9 +9,9 @@ import jakarta.persistence.Id
 
 /**
  * 
- * @param id 
+ * @param categoryId 
  * @param name 
- * @param etc Estimated Time of Completion
+ * @param eta Estimated Time of Accomplishment
  * @param priority 
  */
 @Entity
@@ -20,13 +20,13 @@ data class Category(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Schema(example = "null", readOnly = true, description = "")
-    @get:JsonProperty("id") val id: java.util.UUID? = null,
+    @get:JsonProperty("categoryId") val categoryId: java.util.UUID? = null,
 
     @Schema(example = "null", description = "")
     @get:JsonProperty("name") val name: kotlin.String? = null,
 
-    @Schema(example = "null", description = "Estimated Time of Completion")
-    @get:JsonProperty("etc") val etc: kotlin.Int? = null,
+    @Schema(example = "null", description = "Estimated Time of Accomplishment")
+    @get:JsonProperty("eta") val eta: kotlin.Int? = null,
 
     @Schema(example = "null", description = "")
     @get:JsonProperty("priority") val priority: Category.Priority? = null

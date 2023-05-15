@@ -1,4 +1,4 @@
-package pt.isel.leic.ps.qless.webapi.controllers
+package pt.isel.leic.ps.qless.webapi.apis
 
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
@@ -15,6 +15,7 @@ import javax.validation.Valid
 
 @RestController
 @Validated
+@RequestMapping("\${api.base-path:}")
 class TeamsApiController() {
 
     @Operation(
@@ -43,9 +44,9 @@ class TeamsApiController() {
     )
     @RequestMapping(
         method = [RequestMethod.DELETE],
-        value = ["/teams/{id}"]
+        value = ["/teams/{teamId}"]
     )
-    fun deleteTeamById(@Parameter(description = "ID of team to retrieve", required = true) @PathVariable("id") id: java.util.UUID): ResponseEntity<Unit> {
+    fun deleteTeamById(@Parameter(description = "ID of team to retrieve", required = true) @PathVariable("teamId") teamId: java.util.UUID): ResponseEntity<Unit> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
@@ -75,10 +76,10 @@ class TeamsApiController() {
     )
     @RequestMapping(
         method = [RequestMethod.GET],
-        value = ["/teams/{id}"],
+        value = ["/teams/{teamId}"],
         produces = ["application/json"]
     )
-    fun getTeamById(@Parameter(description = "ID of team to retrieve", required = true) @PathVariable("id") id: java.util.UUID): ResponseEntity<Team> {
+    fun getTeamById(@Parameter(description = "ID of team to retrieve", required = true) @PathVariable("teamId") teamId: java.util.UUID): ResponseEntity<Team> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
@@ -91,11 +92,11 @@ class TeamsApiController() {
     )
     @RequestMapping(
         method = [RequestMethod.PUT],
-        value = ["/teams/{id}"],
+        value = ["/teams/{teamId}"],
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun updateTeamById(@Parameter(description = "ID of team to retrieve", required = true) @PathVariable("id") id: java.util.UUID,@Parameter(description = "Team object to be updated") @Valid @RequestBody(required = false) team: Team?): ResponseEntity<Team> {
+    fun updateTeamById(@Parameter(description = "ID of team to retrieve", required = true) @PathVariable("teamId") teamId: java.util.UUID,@Parameter(description = "Team object to be updated") @Valid @RequestBody(required = false) team: Team?): ResponseEntity<Team> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 }

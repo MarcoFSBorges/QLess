@@ -25,11 +25,10 @@ repositories {
 }
 
 dependencies {
-
-	implementation("org.openapitools:openapi-generator:${property("openApiGeneratorVersion")}")
-	implementation("org.flywaydb:flyway-core:9.8.1")
+	implementation("org.hibernate.validator:hibernate-validator")
+	implementation("org.openapitools:openapi-generator:6.4.0")
+	implementation("org.flywaydb:flyway-core:9.16.0")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin:1.8.21")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
 	//implementation("org.springframework.boot:spring-boot-starter-batch")
 	implementation("org.springframework.boot:spring-boot-starter-hateoas")

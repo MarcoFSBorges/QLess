@@ -1,4 +1,4 @@
-package pt.isel.leic.ps.qless.webapi.controllers
+package pt.isel.leic.ps.qless.webapi.apis
 
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
@@ -15,6 +15,7 @@ import javax.validation.Valid
 
 @RestController
 @Validated
+@RequestMapping("\${api.base-path:}")
 class CategoriesApiController() {
 
     @Operation(
@@ -44,9 +45,9 @@ class CategoriesApiController() {
     )
     @RequestMapping(
         method = [RequestMethod.DELETE],
-        value = ["/categories/{id}"]
+        value = ["/categories/{categoryId}"]
     )
-    fun deleteCategoryById(@Parameter(description = "ID of category to retrieve", required = true) @PathVariable("id") id: java.util.UUID): ResponseEntity<Unit> {
+    fun deleteCategoryById(@Parameter(description = "ID of category to retrieve", required = true) @PathVariable("categoryId") categoryId: java.util.UUID): ResponseEntity<Unit> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
@@ -77,10 +78,10 @@ class CategoriesApiController() {
     )
     @RequestMapping(
         method = [RequestMethod.GET],
-        value = ["/categories/{id}"],
+        value = ["/categories/{categoryId}"],
         produces = ["application/json"]
     )
-    fun getCategoryById(@Parameter(description = "ID of category to retrieve", required = true) @PathVariable("id") id: java.util.UUID): ResponseEntity<Category> {
+    fun getCategoryById(@Parameter(description = "ID of category to retrieve", required = true) @PathVariable("categoryId") categoryId: java.util.UUID): ResponseEntity<Category> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
@@ -94,11 +95,11 @@ class CategoriesApiController() {
     )
     @RequestMapping(
         method = [RequestMethod.PUT],
-        value = ["/categories/{id}"],
+        value = ["/categories/{categoryId}"],
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun updateCategoryById(@Parameter(description = "ID of category to retrieve", required = true) @PathVariable("id") id: java.util.UUID,@Parameter(description = "Category object to be updated") @Valid @RequestBody(required = false) category: Category?): ResponseEntity<Category> {
+    fun updateCategoryById(@Parameter(description = "ID of category to retrieve", required = true) @PathVariable("categoryId") categoryId: java.util.UUID,@Parameter(description = "Category object to be updated") @Valid @RequestBody(required = false) category: Category?): ResponseEntity<Category> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 }

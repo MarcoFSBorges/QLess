@@ -9,32 +9,37 @@ import jakarta.persistence.Id
 
 /**
  * 
- * @param id 
- * @param comment 
- * @param status 
- * @param category 
+ * @param ticketId 
+ * @param openedBy 
+ * @param categoryId 
+ * @param stateId 
  * @param createDate 
+ * @param treatedBy 
  * @param updateDate 
  * @param solvedDate 
  */
 @Entity
 data class Ticket(
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Schema(example = "null", readOnly = true, description = "")
-    @get:JsonProperty("id") val id: java.util.UUID? = null,
+    @Schema(example = "null", required = true, description = "")
+    @get:JsonProperty("ticketId", required = true) val ticketId: java.util.UUID,
 
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("comment", required = true) val comment: kotlin.String,
+    @get:JsonProperty("openedBy", required = true) val openedBy: java.util.UUID,
 
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("status", required = true) val status: Ticket.Status = Status.cREATED,
+    @get:JsonProperty("categoryId", required = true) val categoryId: java.util.UUID,
 
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("category", required = true) val category: kotlin.String,
+    @get:JsonProperty("stateId", required = true) val stateId: java.util.UUID,
 
     @Schema(example = "null", required = true, description = "")
     @get:JsonProperty("create_date", required = true) val createDate: java.time.OffsetDateTime,
+
+    @Schema(example = "null", description = "")
+    @get:JsonProperty("treatedBy") val treatedBy: java.util.UUID? = null,
 
     @Schema(example = "null", description = "")
     @get:JsonProperty("update_date") val updateDate: java.time.OffsetDateTime? = null,
@@ -42,19 +47,6 @@ data class Ticket(
     @Schema(example = "null", description = "")
     @get:JsonProperty("solved_date") val solvedDate: java.time.OffsetDateTime? = null
 ) {
-
-    /**
-    * 
-    * Values: cREATED,oNGOING,sOLVED,cANCELLED,aRCHIVED
-    */
-    enum class Status(val value: kotlin.String) {
-
-        @JsonProperty("CREATED") cREATED("CREATED"),
-        @JsonProperty("ON_GOING") oNGOING("ON_GOING"),
-        @JsonProperty("SOLVED") sOLVED("SOLVED"),
-        @JsonProperty("CANCELLED") cANCELLED("CANCELLED"),
-        @JsonProperty("ARCHIVED") aRCHIVED("ARCHIVED")
-    }
 
 }
 

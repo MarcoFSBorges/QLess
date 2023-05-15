@@ -1,4 +1,4 @@
-package pt.isel.leic.ps.qless.webapi.controllers
+package pt.isel.leic.ps.qless.webapi.apis
 
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
@@ -7,12 +7,12 @@ import io.swagger.v3.oas.annotations.responses.*
 import io.swagger.v3.oas.annotations.security.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-
-import org.springframework.web.bind.annotation.*
 import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @Validated
+@RequestMapping("\${api.base-path:}")
 class WebapiHealthApiController() {
 
     @Operation(

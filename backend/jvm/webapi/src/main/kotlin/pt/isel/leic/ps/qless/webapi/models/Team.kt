@@ -9,7 +9,7 @@ import jakarta.persistence.Id
 
 /**
  * 
- * @param id 
+ * @param teamId 
  * @param name 
  */
 @Entity
@@ -17,8 +17,8 @@ data class Team(
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Schema(example = "null", readOnly = true, description = "")
-    @get:JsonProperty("id") val id: java.util.UUID? = null,
+    @Schema(example = "null", description = "")
+    @get:JsonProperty("teamId") val teamId: java.util.UUID? = null,
 
     @Schema(example = "null", description = "")
     @get:JsonProperty("name") val name: kotlin.String? = null

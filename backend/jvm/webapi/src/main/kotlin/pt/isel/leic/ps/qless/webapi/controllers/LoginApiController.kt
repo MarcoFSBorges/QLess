@@ -1,4 +1,4 @@
-package pt.isel.leic.ps.qless.webapi.controllers
+package pt.isel.leic.ps.qless.webapi.apis
 
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
@@ -15,6 +15,7 @@ import javax.validation.Valid
 
 @RestController
 @Validated
+@RequestMapping("\${api.base-path:}")
 class LoginApiController() {
 
     @Operation(

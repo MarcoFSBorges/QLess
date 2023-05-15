@@ -3,11 +3,11 @@ info:
   title: Ticket Management API
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/api
+  - url: http://localhost:8080/
 tags:
   - name: Authentication
-  - name: Tickets 
-  - name: Teams  
+  - name: Tickets
+  - name: Teams
   - name: Categories
   - name: System
 paths:
@@ -18,7 +18,7 @@ paths:
       summary: Retrieve all tickets
       operationId: getAllTickets
       security:
-        - basicAuth: [] 
+        - basicAuth: []
       responses:
         '200':
           description: OK
@@ -48,7 +48,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Ticket'
-  /tickets/{id}:
+  /tickets/{ticketId}:
     get:
       tags:
         - Tickets
@@ -57,7 +57,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - $ref: "#/components/parameters/ticket_id" 
+        - $ref: "#/components/parameters/ticket_id"
       responses:
         '200':
           description: OK
@@ -75,7 +75,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - $ref: "#/components/parameters/ticket_id" 
+        - $ref: "#/components/parameters/ticket_id"
       requestBody:
         description: Ticket object to be updated
         content:
@@ -99,11 +99,215 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - $ref: "#/components/parameters/ticket_id" 
+        - $ref: "#/components/parameters/ticket_id"
       responses:
         '204':
           description: No content
-  
+  /tickets/{ticketId}/messages:
+    get:
+      tags:
+        - Tickets
+      summary: Retrieve messages for a specific ticket
+      operationId: getTicketMessages
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '404':
+          description: Not found
+
+    post:
+      tags:
+        - Tickets
+      summary: Create a new message for a specific ticket
+      operationId: createTicketMessage
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+      requestBody:
+        description: Message object to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessagePost'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+
+  /tickets/{ticketId}/messages/{messageId}:
+    get:
+      tags:
+        - Tickets
+      summary: Retrieve a specific message for a ticket
+      operationId: getTicketMessageById
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+        - $ref: "#/components/parameters/message_id"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '404':
+          description: Not found
+
+    put:
+      tags:
+        - Tickets
+      summary: Update a specific message for a ticket
+      operationId: updateTicketMessageById
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+        - $ref: "#/components/parameters/message_id"
+      requestBody:
+        description: Message object to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '404':
+          description: Not found
+
+    delete:
+      tags:
+        - Tickets
+      summary: Delete a specific message for a ticket
+      operationId: deleteTicketMessageById
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+        - $ref: "#/components/parameters/message_id"
+      responses:
+        '204':
+          description: No content
+  /tickets/{ticketId}/attachments:
+    get:
+      tags:
+        - Tickets
+      summary: Retrieve attachments of a ticket
+      operationId: getAttachmentsByTicketId
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attachment'
+    post:
+      tags:
+        - Tickets
+      summary: Create a new attachment for a ticket
+      operationId: createAttachment
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+      requestBody:
+        description: Attachment object to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttachmentPost'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+  /tickets/{ticketId}/attachments/{attachmentId}:
+    get:
+      tags:
+        - Tickets
+      summary: Retrieve a specific attachment of a ticket
+      operationId: getAttachmentById
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+        - $ref: "#/components/parameters/attachment_id"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '404':
+          description: Not found
+    put:
+      tags:
+        - Tickets
+      summary: Update a specific attachment of a ticket
+      operationId: updateAttachmentById
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+        - $ref: "#/components/parameters/attachment_id"
+      requestBody:
+        description: Attachment object to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attachment'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+        '404':
+          description: Not found
+    delete:
+      tags:
+        - Tickets
+      summary: Delete a specific attachment of a ticket
+      operationId: deleteAttachmentById
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ticket_id"
+        - $ref: "#/components/parameters/attachment_id"
+      responses:
+        '204':
+          description: No content
+
   /teams:
     get:
       tags:
@@ -135,28 +339,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TeamPost'
-  /teams/{id}:
+  /teams/{teamId}:
     get:
       tags:
         - Teams
       description: "Get Team by Id"
       operationId: "getTeamById"
       parameters:
-        - $ref: "#/components/parameters/team_id" 
+        - $ref: "#/components/parameters/team_id"
       responses:
-        "200": 
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Team'
+                $ref: '#/components/schemas/Team'
     put:
       tags:
         - Teams
       description: "Update Team by Id"
       operationId: "updateTeamById"
       parameters:
-        - $ref: "#/components/parameters/team_id" 
+        - $ref: "#/components/parameters/team_id"
       requestBody:
         description: Team object to be updated
         content:
@@ -164,22 +368,22 @@ paths:
             schema:
               $ref: '#/components/schemas/Team'
       responses:
-        "200": 
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Team'
+                $ref: '#/components/schemas/Team'
     delete:
       tags:
         - Teams
       description: "Delete Team by Id"
       operationId: "deleteTeamById"
       parameters:
-        - $ref: "#/components/parameters/team_id" 
+        - $ref: "#/components/parameters/team_id"
       responses:
-        "204": 
-          description: No Content 
+        "204":
+          description: No Content
 
   /categories:
     get:
@@ -213,8 +417,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategoryPost'
 
-  
-  /categories/{id}:
+
+  /categories/{categoryId}:
     get:
       tags:
         - Categories
@@ -223,14 +427,14 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - $ref: "#/components/parameters/category_id" 
+        - $ref: "#/components/parameters/category_id"
       responses:
-        "200": 
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Category'
+                $ref: '#/components/schemas/Category'
     put:
       tags:
         - Categories
@@ -239,7 +443,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - $ref: "#/components/parameters/category_id" 
+        - $ref: "#/components/parameters/category_id"
       requestBody:
         description: Category object to be updated
         content:
@@ -247,12 +451,12 @@ paths:
             schema:
               $ref: '#/components/schemas/Category'
       responses:
-        "200": 
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Category'
+                $ref: '#/components/schemas/Category'
     delete:
       tags:
         - Categories
@@ -261,11 +465,11 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - $ref: "#/components/parameters/category_id" 
+        - $ref: "#/components/parameters/category_id"
       responses:
-        "204": 
-          description: No Content 
-      
+        "204":
+          description: No Content
+
   /webapi-health:
     get:
       tags:
@@ -320,11 +524,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Token'
-  
+
 components:
   parameters:
+    attachment_id:
+      name: attachmentId
+      in: path
+      description: ID of Message to retrieve
+      required: true
+      schema:
+        type: string
+        format: uuid
+    message_id:
+      name: messageId
+      in: path
+      description: ID of Message to retrieve
+      required: true
+      schema:
+        type: string
+        format: uuid
     ticket_id:
-      name: id
+      name: ticketId
       in: path
       description: ID of ticket to retrieve
       required: true
@@ -332,7 +552,7 @@ components:
         type: string
         format: uuid
     team_id:
-      name: id
+      name: teamId
       in: path
       description: ID of team to retrieve
       required: true
@@ -340,7 +560,7 @@ components:
         type: string
         format: uuid
     category_id:
-      name: id
+      name: categoryId
       in: path
       description: ID of category to retrieve
       required: true
@@ -352,100 +572,179 @@ components:
       type: http
       scheme: basic
   schemas:
+    Attachment:
+      type: object
+      properties:
+        attachmentId:
+          type: string
+          format: uuid
+        ticketId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255
+        createDate:
+          type: string
+          format: date-time
+        content:
+          type: string
+          format: binary
+      required:
+        - attachmentId
+        - ticketId
+        - createDate
+        - content
+      example:
+        attachmentId: 123e4567-e89b-12d3-a456-426614174000
+        ticketId: 987e6543-21dc-ba98-6543-647416142000
+        name: Example Attachment
+        createDate: '2023-05-14T12:34:56Z'
+        content: "..."
+
+    AttachmentPost:
+      type: object
+      properties:
+        ticketId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 255
+        createDate:
+          type: string
+          format: date-time
+        content:
+          type: string
+          format: binary
+      required:
+        - ticketId
+        - createDate
+        - content
+      example:
+        ticketId: 987e6543-21dc-ba98-6543-647416142000
+        name: New Attachment
+        createDate: '2023-05-14T12:34:56Z'
+        content: "..."
+    Message:
+      type: object
+      properties:
+        messageId:
+          type: string
+          format: uuid
+        ticketId:
+          type: string
+          format: uuid
+        sender:
+          type: string
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - messageId
+        - ticketId
+        - sender
+        - content
+        - timestamp
+
+    MessagePost:
+      type: object
+      properties:
+        sender:
+          type: string
+        content:
+          type: string
     WebApiHealth:
       type: string
-      
+
     Category:
       type: object
       properties:
-        id:
+        categoryId:
           type: string
           format: uuid
           readOnly: true
         name:
-          type: string 
-        etc:
+          type: string
+        eta:
           type: integer
-          description: "Estimated Time of Completion"
+          description: "Estimated Time of Accomplishment"
         priority:
           type: string
-          enum: 
+          enum:
             - URGENT
-            - HIGH 
-            - MEDIUM 
+            - HIGH
+            - MEDIUM
             - LOW
     CategoryPost:
       type: object
       properties:
         name:
-          type: string 
-        etc:
+          type: string
+        eta:
           type: integer
-          description: "Estimated Time of Completion"
+          description: "Estimated Time of Accomplishment"
         priority:
           type: string
-          enum: 
-            - UERGENT
-            - HIGH 
-            - MEDIUM 
+          enum:
+            - URGENT
+            - HIGH
+            - MEDIUM
             - LOW
     TeamPost:
       type: object
       properties:
-        name: 
+        name:
           type: string
     Team:
       type: object
       properties:
-        id:
+        teamId:
           type: string
           format: uuid
-          readOnly: true
-        name: 
+        name:
           type: string
-      
+
     Ticket:
       type: object
       properties:
-        id:
+        ticketId:
           type: string
           format: uuid
-          readOnly: true
-        comment:
+        openedBy:
           type: string
-        status:
+          format: uuid
+        treatedBy:
           type: string
-          enum:
-            - CREATED
-            - ON_GOING
-            - SOLVED
-            - CANCELLED
-            - ARCHIVED
-          default: CREATED
-        category:
-          type: string 
+          format: uuid
+        categoryId:
+          type: string
+          format: uuid
+        stateId:
+          type: string
+          format: uuid
         create_date:
           type: string
           format: date-time
         update_date:
           type: string
           format: date-time
-          nullable: true
         solved_date:
-          type:  string
+          type: string
           format: date-time
-          nullable: true
       required:
-        - id
-        - comment
-        - status
-        - category
-        - create_date 
+        - ticketId
+        - openedBy
+        - categoryId
+        - stateId
+        - create_date
     TicketPost:
       type: object
       properties:
         category:
-          type: string 
+          type: string
         comment:
           type: string
         create_date:
@@ -454,19 +753,21 @@ components:
       required:
         - category
         - comment
-        - create_date 
-    
+        - create_date
+
     User:
       type: object
       properties:
-        id:
+        userId:
           type: string
           format: uuid
           readOnly: true
+        username:
+          type: string
         fname:
           type: string
         lname:
-          type: string  
+          type: string
         email:
           type: string
         password:
