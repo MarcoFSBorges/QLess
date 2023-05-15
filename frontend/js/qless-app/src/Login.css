@@ -9,7 +9,7 @@
 }
 
 .flex-container{
-    margin-left: 5px;
+    padding-right: 50px;
     display: flex;
     column-gap: 20px;  /* Set a gap of 20px */
     align-items: flex-start;
@@ -29,6 +29,16 @@
     border-color: black;
 }
 
+.forgotpassbtn {
+    width: 110px;
+    font-size: x-small;
+    margin-right: 120px;
+    margin-top: 5px;
+    height: 30px;
+    text-align: left;
+    border-color: black;
+ }
+
 .inputform {
     width: 220px;
     height: 25px;
@@ -37,12 +47,7 @@
 
 .inputlabeltxt {
     font-size: small;
-    padding-right: 170px;
-}
-
-.forgotpass {
-   font-size: small;
-   padding-right: 125px;
+    padding-right: 195px;
 }
 
 .noacctxt {

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './Signup.css'
+import { Link } from 'react-router-dom';
 
 export function Signup(props: any) {
 
@@ -31,11 +32,12 @@ export function Signup(props: any) {
             <p/>
             <label className="inputlabeltxt" htmlFor="password">Password</label><br/>
             <input className="inputform" value={password}  onChange={(e) => setPassword(e.target.value)} type="password" id="password" name="password"/><p/>
-
+            
             <label  className="hasacctxt" htmlFor="signup">Already have an account?</label><br/>
-
             <div className="flex-containerv2">
-                <button className="loginbtnv2" onClick={() => props.onFormSwitch('login')} type="submit">Login</button>
+                <Link to="/login">
+                    <button className="loginbtnv2" type="submit">Login</button>
+                </Link>
                 <button className="signupbtnv2" type="submit" id="signup" name="signup">Sign up</button>
             </div>
 
