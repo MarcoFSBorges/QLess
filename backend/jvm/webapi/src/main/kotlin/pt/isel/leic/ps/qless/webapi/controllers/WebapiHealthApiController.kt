@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
 import io.swagger.v3.oas.annotations.responses.*
 import io.swagger.v3.oas.annotations.security.*
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -27,7 +26,7 @@ class WebapiHealthApiController() {
         value = ["/webapi-health"],
         produces = ["application/json"]
     )
-    fun webApiHealth(): ResponseEntity<kotlin.String> {
-        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    fun webApiHealth(): ResponseEntity<String> {
+        return ResponseEntity.ok( System.currentTimeMillis().toString())
     }
 }

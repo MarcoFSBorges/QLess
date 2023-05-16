@@ -332,13 +332,19 @@ paths:
       operationId: "createTeam"
       security:
         - basicAuth: []
+      requestBody:
+        description: Team object to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamPost'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TeamPost'
+                $ref: '#/components/schemas/Team'
   /teams/{teamId}:
     get:
       tags:
@@ -409,13 +415,19 @@ paths:
       operationId: "createCategory"
       security:
         - basicAuth: []
+      requestBody:
+        description: Category object to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryPost'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryPost'
+                $ref: '#/components/schemas/Category'
 
 
   /categories/{categoryId}:

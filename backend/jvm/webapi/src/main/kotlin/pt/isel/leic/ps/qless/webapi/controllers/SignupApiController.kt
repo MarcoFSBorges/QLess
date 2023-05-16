@@ -5,17 +5,17 @@ import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
 import io.swagger.v3.oas.annotations.responses.*
 import io.swagger.v3.oas.annotations.security.*
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import pt.isel.leic.ps.qless.webapi.models.User
+import pt.isel.leic.ps.qless.webapi.services.SignupApiService
 import javax.validation.Valid
 
 @RestController
 @Validated
 @RequestMapping("\${api.base-path:}")
-class SignupApiController() {
+class SignupApiController(private val signupApiService: SignupApiService) {
 
     @Operation(
         summary = "Create a new user",
@@ -31,6 +31,6 @@ class SignupApiController() {
         consumes = ["application/json"]
     )
     fun createUser(@Parameter(description = "User object to be created") @Valid @RequestBody(required = false) user: User?): ResponseEntity<User> {
-        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+        return ResponseEntity.ok(signupApiService.signUp(user))
     }
 }
