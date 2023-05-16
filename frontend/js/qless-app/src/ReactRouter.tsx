@@ -4,6 +4,7 @@ import { Login } from './Login'
 import { Signup } from './Signup'
 import logo from './images/QL_1.png'
 import { ForgotPassword } from './ForgotPassword'
+import { ResetPassword } from "./ResetPassword"
 
 function ReactRouter() {
   return (
@@ -14,6 +15,7 @@ function ReactRouter() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/forgot" element={<ForgotPassword/>}/>
+          <Route path="/reset/:id" element={<ResetPassword/>}/>
         </Routes>  
       </div>
     </Router>
