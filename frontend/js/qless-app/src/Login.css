@@ -3,6 +3,9 @@
     border: 2px solid black;
     border-radius: 10px;
     background-color: ivory;
+    width: 450px;
+    margin-left: 40%;
+    
 }
 .formtitle {
     font-size: 25px
@@ -32,7 +35,7 @@
 .forgotpassbtn {
     width: 110px;
     font-size: x-small;
-    margin-right: 120px;
+    margin-right: 110px;
     margin-top: 5px;
     height: 30px;
     text-align: left;
@@ -52,5 +55,10 @@
 
 .noacctxt {
     font-size: x-small;
-    padding-right: 115px;
+    padding-right: 110px;
+}
+
+
+.qlesslogo {
+    margin-left: 10%;
 }

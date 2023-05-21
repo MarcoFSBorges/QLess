@@ -3,7 +3,7 @@
 }
 
 .flex-containerv2{
-    margin-left: 25px;
+    margin-left: 70px;
     display: flex;
     column-gap: 20px;  /* Set a gap of 20px */
     align-items: flex-start;

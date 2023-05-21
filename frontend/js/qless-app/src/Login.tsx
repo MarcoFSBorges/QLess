@@ -14,7 +14,9 @@ export function Login(props: any) {
     }
 
     return (
+        
         <div>
+            <img src={logo} className='qlesslogo' alt=""/>
             <div className="auth-form">
             <h1 className='formtitle'>Login to QLess</h1>
                 <form onSubmit={handleSubmit}>

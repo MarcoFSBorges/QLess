@@ -1,16 +1,18 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 0%;
   padding: 2rem;
-  align-items: center;
   text-align: center;
-  display: flex;
   min-height: 90vh;
   justify-content: center;
 }
 
+.reactrouter {
+  width: 1600px;
+}
+
 .qlesslogo {
-  width: 300px ;
+  width: 300px;
   height: 300px;
 }
 

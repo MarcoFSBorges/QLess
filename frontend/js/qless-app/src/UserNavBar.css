@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0%;
+}
+
+.myuserbar {
+    background-color: #f2ebc9;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navqlesslogo {
+    width: 100px;
+    height: 100px;
+    padding-top: 10px;
+}
+
+
