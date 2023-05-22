@@ -5,7 +5,7 @@ import { Signup } from './components/Signup'
 import { ForgotPassword } from './components/ForgotPassword'
 import { ResetPassword } from "./components/ResetPassword"
 import { UserHomePage } from "./UserHomePage"
-import { UserNavBar } from "./UserNavBar"
+import { UserNavBar } from "./components/UserNavBar"
 
 function ReactRouter() {
   return (

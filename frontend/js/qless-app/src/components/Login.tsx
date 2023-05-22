@@ -14,7 +14,7 @@ export function Login() {
     return (
         <>
             <Stack direction='row' justifyContent='center' height='300px'>
-                <img src={logo} className='qlesslogo' alt="qless-logo"/>
+                <img src={logo} alt="qless-logo"/>
             </Stack>
             
             <p/>

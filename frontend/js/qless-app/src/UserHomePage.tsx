@@ -1,5 +1,4 @@
-import { UserNavBar } from "./UserNavBar";
-import './UserNavBar.css'
+import { UserNavBar } from "./components/UserNavBar";
 
 export function UserHomePage() {
 

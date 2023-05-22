@@ -15,7 +15,7 @@ export function ResetPassword() {
 
         <>
             <Stack direction='row' justifyContent='center' height='300px'>
-                <img src={logo} className='qlesslogo' alt="qless-logo"/>
+                <img src={logo} alt="qless-logo"/>
             </Stack>
             
             <p/>
@@ -23,7 +23,8 @@ export function ResetPassword() {
                 <Stack direction='row' justifyContent='center'>
                     <Paper 
                         elevation={24}
-                        sx={{padding: '24px', width: '52vh'}}>
+                        sx={{padding: '24px', width: '52vh'}}
+                    >
 
                         <Typography align='center' variant='h4' fontFamily='sans-serif' sx={{padding:'4px'}}>Reset password</Typography>
                         <Stack direction='column'>
