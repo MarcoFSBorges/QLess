@@ -1,9 +1,9 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 import './ReactRouter.css'
-import { Login } from './Login'
-import { Signup } from './Signup'
-import { ForgotPassword } from './ForgotPassword'
-import { ResetPassword } from "./ResetPassword"
+import { Login } from './components/Login'
+import { Signup } from './components/Signup'
+import { ForgotPassword } from './components/ForgotPassword'
+import { ResetPassword } from "./components/ResetPassword"
 import { UserHomePage } from "./UserHomePage"
 import { UserNavBar } from "./UserNavBar"
 
