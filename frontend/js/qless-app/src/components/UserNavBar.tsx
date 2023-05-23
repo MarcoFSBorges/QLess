@@ -6,13 +6,13 @@ import logo from '../images/QL_1.png'
 import { useState } from 'react';
 
 const hamburguer_menu = [
-    {link:'/tickets/:qlessId', label:'Create Ticket'}, 
+    {link:'/createTicket/:qlessId', label:'Create Ticket'}, 
     {link:'/tickets/:qlessId', label:'My Tickets'}, 
-    {link:'/tickets/:id', label:'Created'}, 
-    {link:'/tickets/:id', label:'Ongoing'}, 
-    {link:'/tickets/:id', label:'Solved'}, 
-    {link:'/tickets/:id', label:'Cancelled'}, 
-    {link:'/tickets/:id', label:'Archived'}, 
+    {link:'/tickets/:qlessId', label:'Created'},                // /tickets/:qlessId?status=created
+    {link:'/tickets/:qlessId', label:'Ongoing'},               // /tickets/:qlessId?status=ongoing
+    {link:'/tickets/:qlessId', label:'Solved'},                 // /tickets/:qlessId?status=solved
+    {link:'/tickets/:qlessId', label:'Cancelled'},              // /tickets/:qlessId?status=cancelled
+    {link:'/tickets/:qlessId', label:'Archived'},               // /tickets/:qlessId?status=archived
     {link:'/faq', label:'F.A.Q'}, 
     {link:'/about', label:'About'}, 
 ];

@@ -4,7 +4,7 @@ import { Login } from './components/Login'
 import { Signup } from './components/Signup'
 import { ForgotPassword } from './components/ForgotPassword'
 import { ResetPassword } from "./components/ResetPassword"
-import { UserHomePage } from "./UserHomePage"
+import { UserHomePage } from "./components/UserHomePage"
 import { UserNavBar } from "./components/UserNavBar"
 
 function ReactRouter() {
