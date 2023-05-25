@@ -509,7 +509,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/UserPost'
       responses:
         '201':
           description: Created
@@ -766,7 +766,6 @@ components:
         - category
         - comment
         - create_date
-
     User:
       type: object
       properties:
@@ -784,6 +783,19 @@ components:
           type: string
         password:
           type: string
+    UserPost:
+      type: object
+      properties:
+        username:
+          type: string
+        fname:
+          type: string
+        lname:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
         role:
           type: string
           enum:
@@ -791,10 +803,6 @@ components:
             - EMPLOYEE
             - ADMIN
           default: USER
-      required:
-        - name
-        - email
-        - password
     Credentials:
       type: object
       properties:

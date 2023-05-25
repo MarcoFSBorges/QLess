@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import pt.isel.leic.ps.qless.webapi.models.User
+import pt.isel.leic.ps.qless.webapi.models.UserPost
 import pt.isel.leic.ps.qless.webapi.services.SignupApiService
 import javax.validation.Valid
 
@@ -30,7 +31,7 @@ class SignupApiController(private val signupApiService: SignupApiService) {
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun createUser(@Parameter(description = "User object to be created") @Valid @RequestBody(required = false) user: User?): ResponseEntity<User> {
+    fun createUser(@Parameter(description = "User object to be created") @Valid @RequestBody(required = false) user: UserPost?): ResponseEntity<User> {
         return ResponseEntity.ok(signupApiService.signUp(user))
     }
 }

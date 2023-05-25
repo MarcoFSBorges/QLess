@@ -6,6 +6,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.Table
 
 /**
  * 
@@ -18,16 +19,17 @@ import jakarta.persistence.Id
  * @param role 
  */
 @Entity
+@Table(name = "qless_user")
 data class User(
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Schema(example = "null", required = true, description = "")
     @get:JsonProperty("email", required = true) val email: kotlin.String,
 
     @Schema(example = "null", required = true, description = "")
     @get:JsonProperty("password", required = true) val password: kotlin.String,
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Schema(example = "null", readOnly = true, description = "")
     @get:JsonProperty("userId") val userId: java.util.UUID? = null,
 
@@ -40,19 +42,17 @@ data class User(
     @Schema(example = "null", description = "")
     @get:JsonProperty("lname") val lname: kotlin.String? = null,
 
-    @Schema(example = "null", description = "")
-    @get:JsonProperty("role") val role: User.Role? = Role.uSER
 ) {
 
     /**
     * 
-    * Values: uSER,eMPLOYEE,aDMIN
+    * Values: USER,EMPLOYEE,ADMIN
     */
     enum class Role(val value: kotlin.String) {
 
-        @JsonProperty("USER") uSER("USER"),
-        @JsonProperty("EMPLOYEE") eMPLOYEE("EMPLOYEE"),
-        @JsonProperty("ADMIN") aDMIN("ADMIN")
+        @JsonProperty("USER") USER("USER"),
+        @JsonProperty("EMPLOYEE") EMPLOYEE("EMPLOYEE"),
+        @JsonProperty("ADMIN") ADMIN("ADMIN")
     }
 
 }

@@ -9,6 +9,8 @@ import pt.isel.leic.ps.qless.webapi.repositories.UserRepository
 class LoginApiService(private val userRepository: UserRepository
         ) {
     fun login(credentials: Credentials?): Token? {
+        //Check user exists
+        //Create session token for user
         TODO("Not yet implemented")
     }
 

@@ -83,5 +83,4 @@ openApiGenerate{
 	outputDir.set("C:\\Users\\afons\\Desktop\\QLess\\QLess\\backend\\jvm\\api")
 	packageName.set("pt.isel.leic.ps.qless.webapi")
 
-
 }

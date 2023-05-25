@@ -89,3 +89,9 @@ CREATE TABLE IF NOT EXISTS attachment (
 	content bytea NOT NULL,
 	CONSTRAINT fk_attachment_ticketId FOREIGN KEY(ticket_id) REFERENCES ticket(ticket_id)
 );
+
+CREATE TABLE IF NOT EXISTS session (
+    session_id uuid PRIMARY KEY,
+    user_id uuid PRIMARY KEY,
+    CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES ticket(user_id)
+);
