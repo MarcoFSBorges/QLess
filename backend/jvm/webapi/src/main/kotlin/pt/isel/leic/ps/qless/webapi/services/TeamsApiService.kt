@@ -1,7 +1,7 @@
 package pt.isel.leic.ps.qless.webapi.services
 
 import org.springframework.stereotype.Service
-import pt.isel.leic.ps.qless.webapi.models.Team
+import pt.isel.leic.ps.qless.webapi.entities.Team
 import pt.isel.leic.ps.qless.webapi.models.TeamPost
 import pt.isel.leic.ps.qless.webapi.repositories.TeamRepository
 import java.util.*

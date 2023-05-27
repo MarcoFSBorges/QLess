@@ -1,4 +1,4 @@
-package pt.isel.leic.ps.qless.webapi.models
+package pt.isel.leic.ps.qless.webapi.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.v3.oas.annotations.media.Schema
@@ -29,7 +29,7 @@ data class Category(
     @get:JsonProperty("eta") val eta: kotlin.Int? = null,
 
     @Schema(example = "null", description = "")
-    @get:JsonProperty("priority") val priority: Category.Priority? = null
+    @get:JsonProperty("priority") val priority: Priority? = null
 ) {
 
     /**
@@ -38,10 +38,10 @@ data class Category(
     */
     enum class Priority(val value: kotlin.String) {
 
-        @JsonProperty("URGENT") uRGENT("URGENT"),
-        @JsonProperty("HIGH") hIGH("HIGH"),
-        @JsonProperty("MEDIUM") mEDIUM("MEDIUM"),
-        @JsonProperty("LOW") lOW("LOW")
+        @JsonProperty("URGENT") URGENT("URGENT"),
+        @JsonProperty("HIGH") HIGH("HIGH"),
+        @JsonProperty("MEDIUM") MEDIUM("MEDIUM"),
+        @JsonProperty("LOW") LOW("LOW")
     }
 
 }

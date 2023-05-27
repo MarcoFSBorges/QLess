@@ -1,7 +1,7 @@
 package pt.isel.leic.ps.qless.webapi.services
 
 import org.springframework.stereotype.Service
-import pt.isel.leic.ps.qless.webapi.models.Category
+import pt.isel.leic.ps.qless.webapi.entities.Category
 import pt.isel.leic.ps.qless.webapi.models.CategoryPost
 import pt.isel.leic.ps.qless.webapi.repositories.CategoryRepository
 import java.util.*
@@ -11,7 +11,7 @@ class CategoriesApiService(
         private val categoryRepository: CategoryRepository,
         ) {
         fun createCategory(categoryPost: CategoryPost): Category? {
-                TODO()
+                return categoryRepository.save(categoryPost.toCategory())
         }
 
         fun deleteCategoryById(categoryId: UUID): Unit? {

@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import pt.isel.leic.ps.qless.webapi.entities.Attachment
+import pt.isel.leic.ps.qless.webapi.entities.Message
+import pt.isel.leic.ps.qless.webapi.entities.Ticket
 import pt.isel.leic.ps.qless.webapi.models.*
 import pt.isel.leic.ps.qless.webapi.services.TicketsApiService
 import javax.validation.Valid

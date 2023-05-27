@@ -755,8 +755,11 @@ components:
     TicketPost:
       type: object
       properties:
-        category:
+        categoryId:
           type: string
+        openedBy:
+          type: string
+          format: uuid
         comment:
           type: string
         create_date:

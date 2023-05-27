@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.security.*
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
-import pt.isel.leic.ps.qless.webapi.models.User
+import pt.isel.leic.ps.qless.webapi.entities.User
 import pt.isel.leic.ps.qless.webapi.models.UserPost
 import pt.isel.leic.ps.qless.webapi.services.SignupApiService
 import javax.validation.Valid

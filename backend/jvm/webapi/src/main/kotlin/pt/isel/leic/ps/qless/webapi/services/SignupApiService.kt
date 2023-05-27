@@ -1,12 +1,10 @@
 package pt.isel.leic.ps.qless.webapi.services
 
 import org.springframework.stereotype.Service
-import pt.isel.leic.ps.qless.webapi.models.Session
-import pt.isel.leic.ps.qless.webapi.models.User
+import pt.isel.leic.ps.qless.webapi.entities.User
 import pt.isel.leic.ps.qless.webapi.models.UserPost
 import pt.isel.leic.ps.qless.webapi.repositories.SessionRepository
 import pt.isel.leic.ps.qless.webapi.repositories.UserRepository
-import java.util.*
 
 @Service
 class SignupApiService(private val userRepository: UserRepository,
@@ -21,7 +19,9 @@ class SignupApiService(private val userRepository: UserRepository,
             var userExists = false
             for (u in users) {
                 if(u.username.equals(userPost.username)){
+                    //TODO:
                     userExists = true
+                    user = u
                 }
             }
             //2 save new User

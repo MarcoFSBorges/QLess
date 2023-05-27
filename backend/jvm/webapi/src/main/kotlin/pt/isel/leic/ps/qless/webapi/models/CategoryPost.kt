@@ -2,6 +2,7 @@ package pt.isel.leic.ps.qless.webapi.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.v3.oas.annotations.media.Schema
+import pt.isel.leic.ps.qless.webapi.entities.Category
 
 /**
  * 
@@ -12,14 +13,17 @@ import io.swagger.v3.oas.annotations.media.Schema
 data class CategoryPost(
 
     @Schema(example = "null", description = "")
-    @get:JsonProperty("name") val name: kotlin.String? = null,
+    @get:JsonProperty("name") val name: kotlin.String,
 
     @Schema(example = "null", description = "Estimated Time of Accomplishment")
-    @get:JsonProperty("eta") val eta: kotlin.Int? = null,
+    @get:JsonProperty("eta") val eta: kotlin.Int,
 
     @Schema(example = "null", description = "")
-    @get:JsonProperty("priority") val priority: CategoryPost.Priority? = null
+    @get:JsonProperty("priority") val priority: CategoryPost.Priority
 ) {
+    fun toCategory(): Category {
+        return Category(null, name, eta, Category.Priority.valueOf(priority.value) )
+    }
 
     /**
     * 
@@ -27,10 +31,10 @@ data class CategoryPost(
     */
     enum class Priority(val value: kotlin.String) {
 
-        @JsonProperty("URGENT") uRGENT("URGENT"),
-        @JsonProperty("HIGH") hIGH("HIGH"),
-        @JsonProperty("MEDIUM") mEDIUM("MEDIUM"),
-        @JsonProperty("LOW") lOW("LOW")
+        @JsonProperty("URGENT") URGENT("URGENT"),
+        @JsonProperty("HIGH") HIGH("HIGH"),
+        @JsonProperty("MEDIUM") MEDIUM("MEDIUM"),
+        @JsonProperty("LOW") LOW("LOW")
     }
 
 }

@@ -1,4 +1,4 @@
-package pt.isel.leic.ps.qless.webapi.models
+package pt.isel.leic.ps.qless.webapi.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.v3.oas.annotations.media.Schema

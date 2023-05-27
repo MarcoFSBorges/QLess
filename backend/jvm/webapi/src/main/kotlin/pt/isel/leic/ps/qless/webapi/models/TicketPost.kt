@@ -2,6 +2,9 @@ package pt.isel.leic.ps.qless.webapi.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.v3.oas.annotations.media.Schema
+import pt.isel.leic.ps.qless.webapi.entities.Message
+import pt.isel.leic.ps.qless.webapi.entities.Ticket
+import java.util.UUID
 
 /**
  * 
@@ -12,7 +15,10 @@ import io.swagger.v3.oas.annotations.media.Schema
 data class TicketPost(
 
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("category", required = true) val category: kotlin.String,
+    @get:JsonProperty("categoryId", required = true) val categoryId: UUID,
+
+    @Schema(example = "null", required = true, description = "")
+    @get:JsonProperty("openedBy", required = true) val openedBy: UUID,
 
     @Schema(example = "null", required = true, description = "")
     @get:JsonProperty("comment", required = true) val comment: kotlin.String,
@@ -20,6 +26,9 @@ data class TicketPost(
     @Schema(example = "null", required = true, description = "")
     @get:JsonProperty("create_date", required = true) val createDate: java.time.OffsetDateTime
 ) {
+    fun toTicket(): Ticket {
+        return Ticket(categoryId = categoryId,  openedBy = openedBy, createDate = createDate )
+    }
 
 }
 

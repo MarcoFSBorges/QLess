@@ -50,11 +50,14 @@ CREATE TABLE IF NOT EXISTS category_team (
 
 CREATE TABLE IF NOT EXISTS state (
 	state_id uuid PRIMARY KEY DEFAULT uuid_generate_v4()
+    name varchar(50) NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS state_transition (
+    ticket_id uuid PRIMARY KEY,
 	previous_state int PRIMARY KEY,
 	next_state int UNIQUE NOT NULL
+    CONSTRAINT fk_ticket_id FOREIGN KEY(ticket_id) REFERENCES ticket(ticket_id),
 );
 
 CREATE TABLE IF NOT EXISTS ticket (
@@ -62,7 +65,7 @@ CREATE TABLE IF NOT EXISTS ticket (
 	opened_by uuid NOT NULL,
 	treated_by uuid,
 	category_id uuid NOT NULL,
-	state_id uuid NOT NULL,
+	state_id uuid,
 	create_date timestamp NOT NULL,
 	update_date timestamp,
 	solved_date timestamp,
