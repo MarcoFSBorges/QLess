@@ -1,0 +1,13 @@
+#root {
+  max-width: 1280px;
+  margin: 0%;
+  padding: 2rem;
+  text-align: center;
+  min-height: 90vh;
+  justify-content: center;
+}
+
+.reactrouter {
+  width: 1600px;
+}
+
