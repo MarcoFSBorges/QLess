@@ -54,7 +54,7 @@ export function Login() {
                             <Typography align='left' variant='subtitle1'>Don't have an account?</Typography>
                             <Stack spacing={24} direction='row'>
                                 <Button variant='outlined' href='/signup' sx={{border: 1, borderColor: 'black', backgroundColor: "#e0e0e0", color:'black'}}>Sign up</Button>
-                                <Button variant='outlined' type='submit' sx={{ border: 1, borderColor: 'black',backgroundColor: "#e0e0e0", color:'black'}}>Login</Button>  
+                                <Button variant='outlined' type='submit' sx={{ border: 1, borderColor: 'black', backgroundColor: "#e0e0e0", color:'black'}}>Login</Button>  
                             </Stack>
                         </Stack>
                     </Paper>       

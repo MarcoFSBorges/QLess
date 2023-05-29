@@ -6,15 +6,15 @@ import logo from '../images/QL_1.png'
 import { useState } from 'react';
 
 const hamburguer_menu = [
-    {link:'/createTicket/:qlessId', label:'Create Ticket'}, 
-    {link:'/tickets/:qlessId', label:'My Tickets'}, 
-    {link:'/tickets/:qlessId', label:'Created'},                // /tickets/:qlessId?status=created
-    {link:'/tickets/:qlessId', label:'Ongoing'},               // /tickets/:qlessId?status=ongoing
-    {link:'/tickets/:qlessId', label:'Solved'},                 // /tickets/:qlessId?status=solved
-    {link:'/tickets/:qlessId', label:'Cancelled'},              // /tickets/:qlessId?status=cancelled
-    {link:'/tickets/:qlessId', label:'Archived'},               // /tickets/:qlessId?status=archived
-    {link:'/faq', label:'F.A.Q'}, 
-    {link:'/about', label:'About'}, 
+    {link:'/createTicket/:qlessId', label:'Create Ticket', isStatus: false}, 
+    {link:'/tickets/:qlessId', label:'My Tickets', isStatus: false}, 
+    {link:'/tickets/:qlessId', label:'Created', isStatus: true},                // /tickets/:qlessId?status=created
+    {link:'/tickets/:qlessId', label:'Ongoing', isStatus: true},               // /tickets/:qlessId?status=ongoing
+    {link:'/tickets/:qlessId', label:'Solved', isStatus: true},                 // /tickets/:qlessId?status=solved
+    {link:'/tickets/:qlessId', label:'Cancelled', isStatus: true},              // /tickets/:qlessId?status=cancelled
+    {link:'/tickets/:qlessId', label:'Archived', isStatus: true},               // /tickets/:qlessId?status=archived
+    {link:'/faq', label:'F.A.Q', isStatus: false}, 
+    {link:'/about', label:'About', isStatus: false}, 
 ];
 
 export function UserNavBar() {
@@ -68,22 +68,22 @@ export function UserNavBar() {
                     onClose={handleHamburguerClose}
                 >
                     {hamburguer_menu.map((option) => (
-                    <>
-                        <MenuItem key={option.link}> 
+                        <>
+                            <MenuItem key={option.link}> 
+                                {
+                                    option.isStatus ? 
+                                        <Link href={option.link} underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontWeight={500} paddingLeft={1}>{option.label}</Link> : 
+                                        <Link href={option.link} underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontWeight={700} >{option.label}</Link>
+                                }
+                            </MenuItem>
                             {
-                                option.link.includes(':id') ? 
-                                    <Link href={option.link} underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontWeight={500} paddingLeft={1}>{option.label}</Link> : 
-                                    <Link href={option.link} underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontWeight={700} >{option.label}</Link>
+                                option.label !== 'About' ? 
+                                    <Divider/> :
+                                    <div/>
                             }
-                        </MenuItem>
-                        {
-                            option.label !== 'About' ? 
-                                <Divider/> :
-                                <div/>
-                        }
-                       
-                    </>  
-                ))}
+                        
+                        </>  
+                    ))}
                 </Menu>
            
                 <Menu 

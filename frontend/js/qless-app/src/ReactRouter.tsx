@@ -6,6 +6,7 @@ import { ForgotPassword } from './components/ForgotPassword'
 import { ResetPassword } from "./components/ResetPassword"
 import { UserHomePage } from "./components/UserHomePage"
 import { UserNavBar } from "./components/UserNavBar"
+import { CreateTicket } from "./components/CreateTicket"
 
 function ReactRouter() {
   return (
@@ -22,10 +23,16 @@ function ReactRouter() {
               <>
                 <UserNavBar/>
                 <UserHomePage/>
-              </>
-              
-          
+              </>   
           }/>
+          <Route 
+            path='/createTicket/:qlessId' 
+            element={
+              <>
+                <UserNavBar/>
+                <CreateTicket/>
+              </>
+            }/>
         </Routes>  
       </div>
     </Router>
