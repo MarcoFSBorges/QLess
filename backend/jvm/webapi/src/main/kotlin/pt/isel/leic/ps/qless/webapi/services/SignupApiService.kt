@@ -1,7 +1,10 @@
 package pt.isel.leic.ps.qless.webapi.services
 
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import pt.isel.leic.ps.qless.webapi.entities.User
+import pt.isel.leic.ps.qless.webapi.exceptions.QLessException
+import pt.isel.leic.ps.qless.webapi.exceptions.SignUpException
 import pt.isel.leic.ps.qless.webapi.models.UserPost
 import pt.isel.leic.ps.qless.webapi.repositories.SessionRepository
 import pt.isel.leic.ps.qless.webapi.repositories.UserRepository
@@ -12,24 +15,18 @@ class SignupApiService(private val userRepository: UserRepository,
         ) {
     fun signUp(userPost: UserPost?): User? {
         if(userPost != null){
-            //1 Check username doesn't exist
-            //TODO: Create query to find by username
-            val users = userRepository.findAll()
             var user = userPost.toUser()
-            var userExists = false
-            for (u in users) {
-                if(u.username.equals(userPost.username)){
-                    //TODO:
-                    userExists = true
-                    user = u
-                }
-            }
-            //2 save new User
-            if(!userExists){
+            try {
+                //1 Check username doesn't exist
+                val userFound = userRepository.findByUsername(userPost.username)
+                if(userFound != null)
+                    user = userFound
+                else
+                    throw SignUpException("Internal error getting user", HttpStatus.INTERNAL_SERVER_ERROR)
+                //3 Generate Session Token
+            }catch (exception: Exception){
                 user = userRepository.save(user)
             }
-
-            //3 Generate Sesison Token
             println(user)
             return user
         }

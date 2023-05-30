@@ -27,7 +27,7 @@ repositories {
 dependencies {
 	implementation("org.hibernate.validator:hibernate-validator")
 	implementation("org.openapitools:openapi-generator:6.4.0")
-	implementation("org.flywaydb:flyway-core:9.16.0")
+	//implementation("org.flywaydb:flyway-core:9.16.0")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
 	//implementation("org.springframework.boot:spring-boot-starter-batch")
