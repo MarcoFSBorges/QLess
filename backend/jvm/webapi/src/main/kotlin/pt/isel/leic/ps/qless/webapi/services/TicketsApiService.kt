@@ -28,11 +28,26 @@ class TicketsApiService(
         try {
             return ticketRepository.findAll()
         }catch (exception: Exception){
+            throw TicketsException("Error getting tickets", HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 
     fun createAttachment(ticketId: UUID, attachmentPost: AttachmentPost): Attachment? {
-        TODO("Not yet implemented")
+        if(!ticketRepository.existsById(ticketId))
+            throw TicketsException(TICKET_ID_DOES_NOT_EXIST, HttpStatus.NOT_FOUND)
+
+        var ticket : Ticket?
+        try {
+            ticket = ticketRepository.findByIdOrNull(ticketId)
+        }catch (exception: Exception){
+            throw TicketsException(ERROR_GETTING_TICKET, HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+
+        try{
+            return attachmentRepository.save(attachmentPost.toAttachment(ticketId))
+        }catch (exception: Exception){
+            throw TicketsException("Error saving attachment", HttpStatus.INTERNAL_SERVER_ERROR)
+        }
     }
 
     fun createTicket(ticketPost: TicketPost): Ticket? {
@@ -165,10 +180,10 @@ class TicketsApiService(
     fun getTicketMessages(ticketId: UUID): List<Message>? {
         if(!ticketRepository.existsById(ticketId))
             throw TicketsException(TICKET_ID_DOES_NOT_EXIST, HttpStatus.NOT_FOUND)
-        
+
         try {
             val ticket = ticketRepository.findByIdOrNull(ticketId)
-                    ?: throw TicketsException("Error getting ticket", HttpStatus.INTERNAL_SERVER_ERROR)
+                    ?: throw TicketsException(ERROR_GETTING_TICKET, HttpStatus.INTERNAL_SERVER_ERROR)
             val msgs = ticket.messages ?: return emptyList()
             return msgs.toList()
 

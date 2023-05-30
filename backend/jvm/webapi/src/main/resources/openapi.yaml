@@ -628,7 +628,7 @@ components:
           format: date-time
         content:
           type: string
-          format: binary
+          format: byte
       required:
         - ticketId
         - createDate
