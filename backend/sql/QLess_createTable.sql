@@ -7,10 +7,10 @@ CREATE DOMAIN IF NOT EXISTS priority_range AS INTEGER
 -- table with all the users, backoffice or clients
 CREATE TABLE IF NOT EXISTS qless_user (
 	user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-	username varchar(30) NOT NULL,
 	fname varchar(100) NOT NULL,
 	lname varchar(100) NOT NULL,
-	email varchar(255) NOT NULL,
+	email varchar(255) NOT NULL UNIQUE,
+	picture bytea,
 	password varchar(64) NOT NULL,
 	CONSTRAINT valid_email CHECK (email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
 );
