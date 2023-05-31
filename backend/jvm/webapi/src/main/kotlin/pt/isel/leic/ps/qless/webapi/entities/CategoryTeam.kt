@@ -25,7 +25,7 @@ data class CategoryTeam(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Schema(example = "null", readOnly = true, description = "")
-    @get:JsonProperty("categpryId") val categoryId: java.util.UUID? = null,
+    @get:JsonProperty("categoryId") val categoryId: java.util.UUID? = null,
 
     @Schema(example = "null", description = "")
     @get:JsonProperty("teamId") val teamId: java.util.UUID? = null,

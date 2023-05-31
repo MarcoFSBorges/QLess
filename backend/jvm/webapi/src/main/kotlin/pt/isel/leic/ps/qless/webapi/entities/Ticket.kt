@@ -52,7 +52,13 @@ data class Ticket(
 
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "tickedId", referencedColumnName = "ticketId")
-    @get:JsonProperty("messages")var messages: Set<Message>? = null
+    @get:JsonProperty("messages")var messages: Set<Message>? = null,
+
+    @OneToMany(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "tickedId", referencedColumnName = "ticketId")
+    @get:JsonProperty("messages")var attachments: Set<Attachment>? = null
+
+
 ) {
 
 }

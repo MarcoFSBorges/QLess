@@ -23,7 +23,7 @@ data class Attachment(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("attachmentId", required = true) val attachmentId: java.util.UUID,
+    @get:JsonProperty("attachmentId", required = true) val attachmentId: java.util.UUID? = null,
 
     @Schema(example = "null", required = true, description = "")
     @get:JsonProperty("ticketId", required = true) val ticketId: java.util.UUID,
