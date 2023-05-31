@@ -18,7 +18,7 @@ class SignupApiService(private val userRepository: UserRepository,
             var user = userPost.toUser()
             try {
                 //1 Check username doesn't exist
-                val userFound = userRepository.findByUsername(userPost.username)
+                val userFound = userRepository.findByEmail(userPost.email)
                 if(userFound != null)
                     user = userFound
                 else

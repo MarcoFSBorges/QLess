@@ -16,9 +16,6 @@ import pt.isel.leic.ps.qless.webapi.entities.User
 data class UserPost(
 
     @Schema(example = "null", description = "")
-    @get:JsonProperty("username") val username: kotlin.String,
-
-    @Schema(example = "null", description = "")
     @get:JsonProperty("fname") val fname: kotlin.String,
 
     @Schema(example = "null", description = "")
@@ -31,10 +28,10 @@ data class UserPost(
     @get:JsonProperty("password") val password: kotlin.String,
 
     @Schema(example = "null", description = "")
-    @get:JsonProperty("role") val role: UserPost.Role = Role.uSER
+    @get:JsonProperty("role") val role: UserPost.Role = Role.USER
 ) {
     fun toUser(): User {
-        return User(this.email,password,null, username, fname, lname)
+        return User(this.email,password,null, fname, lname)
     }
 
     /**
@@ -43,9 +40,9 @@ data class UserPost(
     */
     enum class Role(val value: kotlin.String) {
 
-        @JsonProperty("USER") uSER("USER"),
-        @JsonProperty("EMPLOYEE") eMPLOYEE("EMPLOYEE"),
-        @JsonProperty("ADMIN") aDMIN("ADMIN")
+        @JsonProperty("USER") USER("USER"),
+        @JsonProperty("EMPLOYEE") EMPLOYEE("EMPLOYEE"),
+        @JsonProperty("ADMIN") ADMIN("ADMIN")
     }
 
 }

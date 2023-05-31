@@ -35,10 +35,6 @@ data class User(
     @get:JsonProperty("userId") val userId: java.util.UUID? = null,
 
     @Schema(example = "null", description = "")
-    @Column(unique = true)
-    @get:JsonProperty("username") val username: kotlin.String? = null,
-
-    @Schema(example = "null", description = "")
     @get:JsonProperty("fname") val fname: kotlin.String? = null,
 
     @Schema(example = "null", description = "")

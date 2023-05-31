@@ -9,8 +9,8 @@ import java.util.*
 @Repository
 interface UserRepository :  JpaRepository<User,UUID>{
 
-    @Query("SELECT u from User u where u.username = ?1")
-    fun findByUsername(username: String) : User
+    @Query("SELECT u from User u where u.email = ?1")
+    fun findByEmail(email: String) : User?
 
 
 }

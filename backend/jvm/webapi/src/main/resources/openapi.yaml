@@ -776,8 +776,6 @@ components:
           type: string
           format: uuid
           readOnly: true
-        username:
-          type: string
         fname:
           type: string
         lname:
@@ -789,8 +787,6 @@ components:
     UserPost:
       type: object
       properties:
-        username:
-          type: string
         fname:
           type: string
         lname:
