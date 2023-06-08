@@ -11,7 +11,6 @@ import { CreateTicket } from "./components/CreateTicket"
 function ReactRouter() {
   return (
     <Router>
-      <div className="reactrouter">
         <Routes>
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<Signup/>}/>
@@ -33,8 +32,7 @@ function ReactRouter() {
                 <CreateTicket/>
               </>
             }/>
-        </Routes>  
-      </div>
+        </Routes>
     </Router>
     
   )

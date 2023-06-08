@@ -1,13 +1,24 @@
 #root {
-  max-width: 1280px;
-  margin: 0%;
-  padding: 2rem;
-  text-align: center;
-  min-height: 90vh;
-  justify-content: center;
+  /*margin: 0%;
+  padding: 2rem;*/
+  /*text-align: center;*/
+  /*min-height: 90vh;*/
+  /*justify-content: center;*/
 }
 
-.reactrouter {
-  width: 1600px;
+.qlessLogo {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  width: auto;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+  height: 250px;
+  aspect-ratio: auto 500 / 500;
+  width: 250px;
 }
 
+.qlessResponsiveForm{
+  object-fit: contain;
+}
