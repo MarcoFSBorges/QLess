@@ -1,7 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- category priority accepted values
-CREATE DOMAIN IF NOT EXISTS priority_range AS INTEGER
+CREATE DOMAIN priority_range AS INTEGER
 	CHECK (VALUE >= 0 AND VALUE <= 10);
 
 -- table with all the users, backoffice or clients
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS category (
 	category_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 	name varchar(50) NOT NULL,
 	eta int NOT NULL, -- estimate time of completion
-	priority priority_range NOT NULL -- priority from 0 to 10, bring 0 the highest priority and 10 the least
+	priority priority_range NOT NULL -- priority from 0 to 10, being 0 the highest priority and 10 the lowest
 );
 
 -- association table between users and roles
