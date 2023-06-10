@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "pt.isel.leic.ps.qless"
-version = "1.0.0"
+version = ""
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
@@ -27,7 +27,7 @@ repositories {
 dependencies {
 	implementation("org.hibernate.validator:hibernate-validator")
 	implementation("org.openapitools:openapi-generator:6.4.0")
-	implementation("org.flywaydb:flyway-core:9.16.0")
+	//implementation("org.flywaydb:flyway-core:9.16.0")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.4")
 	//implementation("org.springframework.boot:spring-boot-starter-batch")

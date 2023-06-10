@@ -2,6 +2,7 @@ package pt.isel.leic.ps.qless.webapi.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -28,13 +29,14 @@ data class Message(
     @get:JsonProperty("ticketId", required = true) val ticketId: java.util.UUID,
 
     @Schema(example = "null", required = true, description = "")
+    @Column(name = "sent_by_employee")
     @get:JsonProperty("sender", required = true) val sender: kotlin.String,
 
     @Schema(example = "null", required = true, description = "")
     @get:JsonProperty("content", required = true) val content: kotlin.String,
 
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("timestamp", required = true) val timestamp: java.time.OffsetDateTime
+    @get:JsonProperty("timeSent", required = true) val timeSent: java.time.OffsetDateTime
 ) {
     companion object {
         fun fromTicket(ticket: Ticket, comment: String): Message {
