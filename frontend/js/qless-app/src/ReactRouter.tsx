@@ -9,7 +9,7 @@ import { UserHomePage } from "./components/UserHomePage"
 import { UserNavBar } from "./components/UserNavBar"
 import { CreateTicket } from "./components/CreateTicket"
 
-import { Link as RouterLink, LinkProps as RouterLinkProps, MemoryRouter } from 'react-router-dom';
+import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { LinkProps } from '@mui/material/Link';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { forwardRef } from 'react';

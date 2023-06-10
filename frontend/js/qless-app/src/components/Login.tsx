@@ -13,7 +13,7 @@ export function Login() {
 
     return (
         <>
-            <Box >
+            <Box>
                 <Stack direction='column' justifyContent='center' alignItems='center' spacing={2}>
                     <img className="qlessLogo" src={logo} alt="qless-logo"/>
 
@@ -41,7 +41,7 @@ export function Login() {
                                     onChange={e => setPassword(e.target.value)}
                                 />
                             </Stack>
-                            <Stack direction='column' justifyContent='flex-start' alignItems='flex-start'>
+                            <Stack direction='column' justifyContent='flex-start' alignItems='flex-start' sx={{paddingTop:'8px'}}>
                                 <Typography align='left' variant='subtitle2'>
                                     <Link href='/forgot' underline='hover' color='#757575'>Forgot password?</Link>
                                 </Typography>
