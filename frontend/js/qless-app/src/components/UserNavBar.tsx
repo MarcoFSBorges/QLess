@@ -4,6 +4,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Divider from '@mui/material/Divider';
 import logo from '../images/QL_1.png'
 import { useState } from 'react';
+import { Settings } from './Settings';
 
 const hamburguer_menu = [
     {link:'/createTicket/:qlessId', label:'Create Ticket', isStatus: false}, 
@@ -25,6 +26,8 @@ export function UserNavBar() {
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null)
     const openProfile = Boolean(anchorElProfile)
 
+    const [openSettings, setOpenSettings] = useState(false);
+
     const handleHamburguerClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorElHamburguer(event.currentTarget)
     }
@@ -40,6 +43,11 @@ export function UserNavBar() {
     const handleProfileClose = () => {
         setAnchorElProfile(null)
     }
+
+    const handleClickOpenSettings = () => {
+        openSettings ? setOpenSettings(false) : setOpenSettings(true)
+    };
+    
 
     return (
         <AppBar position='absolute' elevation={0} sx={{ background: '#f2ebc9'}}>
@@ -103,7 +111,12 @@ export function UserNavBar() {
                         <Typography align='center' variant='h6' fontFamily='monospace' fontSize={15}>Email</Typography>
                         <Divider/>
                         <Stack direction='column' spacing={1}>
-                            <Link href='/settings' underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontSize={20} paddingTop={1}>Settings</Link>
+                            <Link onClick={handleClickOpenSettings} underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontSize={20} paddingTop={1}>Settings</Link>
+                            
+                            {
+                                openSettings ? <Settings/> : null
+                            }
+                            
                             <Link underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontSize={20}>Logout</Link>
                         </Stack>
                     </Paper>

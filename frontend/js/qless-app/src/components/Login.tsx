@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Paper, Stack, Typography, TextField, Button, Link } from '@mui/material';
-import logo from '../images/QL_1.png'
+import { Paper, Stack, Typography, TextField, Button, Link, Box } from '@mui/material';
+import logo from '../images/QL_1.png';
 
 export function Login() {
 
@@ -13,57 +13,51 @@ export function Login() {
 
     return (
         <>
-            <Stack direction='row' justifyContent='center' height='300px'>
-                <img src={logo} alt="qless-logo"/>
-            </Stack>
-            
-            <p/>
-            <form onSubmit={handleSubmit}>
-                <Stack direction='row' justifyContent='center'>
-                    <Paper 
-                        elevation={24}
-                        sx={{padding: '24px', width: '52vh'}}>
+            <Box>
+                <Stack direction='column' justifyContent='center' alignItems='center' spacing={2}>
+                    <img className="qlessLogo" src={logo} alt="qless-logo"/>
 
-                        <Typography align='center' variant='h3' fontFamily='sans-serif' sx={{padding:'4px'}}>Login to QLess</Typography>
-                        <Stack direction='column'>
-                            <TextField 
-                                label='Username' 
-                                variant='outlined' 
-                                value={username} 
-                                onChange={e => setUsername(e.target.value)}
-                                sx={{padding:'4px'}}
-                            />
-                        </Stack>
-                        <p/>
-                        <Stack direction='column'>
-                            <TextField 
-                                label='Password' 
-                                type='password' 
-                                variant='outlined'
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}  
-                                sx={{padding:'4px'}}  
-                            />
-                            <Typography align='left' variant='subtitle2'>
-                                <Link href='/forgot' underline='hover' color='#757575'>Forgot password?</Link>
-                            </Typography>    
-                        </Stack>
-                        <p/>
+                    <form className="qlessResponsiveForm" onSubmit={handleSubmit}>
+                        <Paper 
+                            elevation={24}
+                            sx={{padding: '24px'}}>
+                            <Stack direction='column' justifyContent='flex-start' alignItems='center' spacing={2}>
+                                <Typography align='center' variant='h3' fontFamily='sans-serif'>Login to QLess</Typography>
+                                
+                                <TextField 
+                                    fullWidth
+                                    label='Username' 
+                                    variant='outlined' 
+                                    value={username} 
+                                    onChange={e => setUsername(e.target.value)}
+                                />
 
-                        <Stack direction='column' >
-                            <Typography align='left' variant='subtitle1'>Don't have an account?</Typography>
-                            <Stack spacing={24} direction='row'>
+                                <TextField 
+                                    fullWidth
+                                    label='Password' 
+                                    type='password' 
+                                    variant='outlined'
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                            </Stack>
+                            <Stack direction='column' justifyContent='flex-start' alignItems='flex-start' sx={{paddingTop:'8px'}}>
+                                <Typography align='left' variant='subtitle2'>
+                                    <Link href='/forgot' underline='hover' color='#757575'>Forgot password?</Link>
+                                </Typography>
+                                <Typography align='left' variant='subtitle2'>
+                                    Don't have an account?
+                                </Typography>
+                            </Stack>
+                            
+                            <Stack direction='row' justifyContent="center" alignItems='center' spacing={18} sx={{paddingTop:'8px'}}>
                                 <Button variant='outlined' href='/signup' sx={{border: 1, borderColor: 'black', backgroundColor: "#e0e0e0", color:'black'}}>Sign up</Button>
                                 <Button variant='outlined' type='submit' sx={{ border: 1, borderColor: 'black', backgroundColor: "#e0e0e0", color:'black'}}>Login</Button>  
-                            </Stack>
-                        </Stack>
-                    </Paper>       
-                </Stack> 
-            </form>                         
+                            </Stack>    
+                        </Paper> 
+                    </form>   
+                </Stack>
+            </Box>                  
         </>
-  
     );
 }
-
-    
-

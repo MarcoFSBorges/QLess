@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Paper, Stack, Typography, TextField, Button} from '@mui/material';
+import { Paper, Stack, Typography, TextField, Button, Box} from '@mui/material';
 import logo from '../images/QL_1.png'
 
 export function ResetPassword() {
@@ -12,53 +12,39 @@ export function ResetPassword() {
     }
 
     return (
-
         <>
-            <Stack direction='row' justifyContent='center' height='300px'>
-                <img src={logo} alt="qless-logo"/>
-            </Stack>
-            
-            <p/>
-            <form onSubmit={handleSubmit}>
-                <Stack direction='row' justifyContent='center'>
-                    <Paper 
-                        elevation={24}
-                        sx={{padding: '24px', width: '52vh'}}
-                    >
-
-                        <Typography align='center' variant='h4' fontFamily='sans-serif' sx={{padding:'4px'}}>Reset password</Typography>
-                        <Stack direction='column'>
-                            <TextField 
-                                label='New password' 
-                                type='password' 
-                                variant='outlined' 
-                                value={password} 
-                                onChange={e => setPassword(e.target.value)}
-                                sx={{padding:'4px'}}
-                            />
-                        </Stack>
-                        <p/>
-                        <Stack direction='column'>
-                            <TextField 
-                                label='Confirm password' 
-                                type='password' 
-                                variant='outlined'
-                                value={confirmPass}
-                                onChange={e => setConfPassword(e.target.value)}  
-                                sx={{padding:'4px'}}  
-                            />  
-                        </Stack>
-                        <p/>
-                        <Stack direction='column' >
-                            <Stack direction='row' justifyContent='center'>
-                                <Button variant='outlined' type='submit' sx={{ border: 1, borderColor: 'black',backgroundColor: "#e0e0e0", color:'black'}}>Submit</Button>  
-                            </Stack> 
-                        </Stack>
-                    </Paper>       
-                </Stack> 
-            </form>                         
+            <Box>
+                <Stack direction='column' justifyContent='center' alignItems='center' spacing={2}>
+                    <img className="qlessLogo" src={logo} alt="qless-logo"/>
+                    <form className="qlessResponsiveForm" onSubmit={handleSubmit}>
+                        <Paper 
+                            elevation={24}
+                            sx={{padding: '24px'}}>
+                            <Stack direction='column' justifyContent='flex-start' alignItems='center' spacing={2}>
+                                <Typography align='center' variant='h4' fontFamily='sans-serif' sx={{padding:'4px'}}>Reset password</Typography>
+                                <TextField 
+                                    fullWidth
+                                    label='New password' 
+                                    type='password' 
+                                    variant='outlined' 
+                                    value={password} 
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                                <TextField 
+                                    fullWidth
+                                    label='Confirm password' 
+                                    type='password' 
+                                    variant='outlined'
+                                    value={confirmPass}
+                                    onChange={e => setConfPassword(e.target.value)}  
+                                /> 
+                                <Button variant='outlined' type='submit' sx={{ border: 1, borderColor: 'black',backgroundColor: "#e0e0e0", color:'black'}}>Submit</Button>
+                            </Stack>
+                        </Paper> 
+                    </form>   
+                </Stack>
+            </Box>                  
         </>
-        
     );
 
 }
