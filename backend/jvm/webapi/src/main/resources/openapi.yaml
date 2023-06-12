@@ -3,7 +3,7 @@ info:
   title: Ticket Management API
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/
+  - url: http://localhost:8080
 tags:
   - name: Authentication
   - name: Tickets
@@ -628,7 +628,7 @@ components:
           format: date-time
         content:
           type: string
-          format: binary
+          format: byte
       required:
         - ticketId
         - createDate
@@ -647,19 +647,19 @@ components:
         ticketId:
           type: string
           format: uuid
-        sender:
+        sentByEmployee:
           type: string
         content:
           type: string
-        timestamp:
+        timeSent:
           type: string
           format: date-time
       required:
         - messageId
         - ticketId
-        - sender
+        - sentByEmployee
         - content
-        - timestamp
+        - timeSent
 
     MessagePost:
       type: object

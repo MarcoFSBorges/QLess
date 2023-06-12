@@ -2,6 +2,7 @@ package pt.isel.leic.ps.qless.webapi.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.v3.oas.annotations.media.Schema
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -34,6 +35,7 @@ data class User(
     @get:JsonProperty("userId") val userId: java.util.UUID? = null,
 
     @Schema(example = "null", description = "")
+    @Column(unique = true)
     @get:JsonProperty("username") val username: kotlin.String? = null,
 
     @Schema(example = "null", description = "")
