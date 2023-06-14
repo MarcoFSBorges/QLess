@@ -647,8 +647,8 @@ components:
         ticketId:
           type: string
           format: uuid
-        sentByEmployee:
-          type: string
+        isEmployee:
+          type: boolean
         content:
           type: string
         timeSent:
@@ -664,8 +664,8 @@ components:
     MessagePost:
       type: object
       properties:
-        sender:
-          type: string
+        isEmployee:
+          type: boolean
         content:
           type: string
     WebApiHealth:

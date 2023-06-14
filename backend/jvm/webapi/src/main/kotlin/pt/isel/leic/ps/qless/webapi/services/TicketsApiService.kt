@@ -60,14 +60,14 @@ class TicketsApiService(
 
         if(savedTicked.ticketId != null){
             var msgSet = HashSet<Message>()
-            msgSet.add(saveMessage(savedTicked, ticketPost.comment))
+            msgSet.add(saveMessage(savedTicked, ticketPost.comment, false))
             savedTicked.messages = msgSet
         }
         return savedTicked
     }
 
-    private fun saveMessage(savedTicked: Ticket, comment: String): Message {
-        val msg = Message.fromTicket(savedTicked, comment)
+    private fun saveMessage(savedTicked: Ticket, comment: String, isEmployee: Boolean): Message {
+        val msg = Message.fromTicket(savedTicked, comment, isEmployee)
         try{
             return messageRepository.save(msg)
         }catch (exception: Exception){
