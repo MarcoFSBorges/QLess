@@ -9,6 +9,7 @@ import { UserHomePage } from "./components/UserHomePage"
 import { UserNavBar } from "./components/UserNavBar"
 import { CreateTicket } from "./components/CreateTicket"
 
+import { Stack } from "@mui/material"
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { LinkProps } from '@mui/material/Link';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -57,11 +58,13 @@ function ReactRouter() {
           <Route path="/forgot" element={<ForgotPassword/>}/>
           <Route path="/reset/:resetId" element={<ResetPassword/>}/>
           <Route 
-            path="/tickets/:qlessId" 
+            path="/home" 
             element= {
               <>
-                <UserNavBar/>
-                <UserHomePage/>
+                <Stack direction='column' justifyContent='center' alignItems='center' spacing={16}>
+                  <UserNavBar/>
+                  <UserHomePage/>
+                </Stack>
               </>   
           }/>
           <Route 

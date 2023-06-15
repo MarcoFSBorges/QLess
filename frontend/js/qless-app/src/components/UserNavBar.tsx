@@ -7,13 +7,7 @@ import { useState } from 'react';
 import { Settings } from './Settings';
 
 const hamburguer_menu = [
-    {link:'/createTicket/:qlessId', label:'Create Ticket', isStatus: false}, 
-    {link:'/tickets/:qlessId', label:'My Tickets', isStatus: false}, 
-    {link:'/tickets/:qlessId', label:'Created', isStatus: true},                // /tickets/:qlessId?status=created
-    {link:'/tickets/:qlessId', label:'Ongoing', isStatus: true},               // /tickets/:qlessId?status=ongoing
-    {link:'/tickets/:qlessId', label:'Solved', isStatus: true},                 // /tickets/:qlessId?status=solved
-    {link:'/tickets/:qlessId', label:'Cancelled', isStatus: true},              // /tickets/:qlessId?status=cancelled
-    {link:'/tickets/:qlessId', label:'Archived', isStatus: true},               // /tickets/:qlessId?status=archived
+    {link:'/tickets/:qlessId', label:'My Tickets', isStatus: false},
     {link:'/faq', label:'F.A.Q', isStatus: false}, 
     {link:'/about', label:'About', isStatus: false}, 
 ];
@@ -61,7 +55,7 @@ export function UserNavBar() {
                     <MenuIcon/>
                 </IconButton>
                 <Stack direction='row' justifyContent='center' height='150px' sx={{flexGrow: 1}}>
-                    <img src={logo} alt="qless-logo"/>
+                    <img className="qlessLogo" src={logo} alt="qless-logo"/>
                 </Stack>
                 <IconButton 
                     id='profile-button'
