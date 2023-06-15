@@ -34,8 +34,15 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-hateoas")
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	//implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-	//implementation("org.springframework.boot:spring-boot-starter-security")
-	//implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+
+
+	implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
+	implementation ("io.jsonwebtoken:jjwt-impl:0.11.2")
+	implementation ("io.jsonwebtoken:jjwt-jackson:0.11.2")
+
+
+	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.azure.spring:spring-cloud-azure-starter")
 	implementation("com.azure.spring:spring-cloud-azure-starter-jdbc-postgresql")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

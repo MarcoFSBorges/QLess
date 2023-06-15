@@ -25,6 +25,8 @@ class SignupApiController(private val signupApiService: SignupApiService) {
         responses = [
             ApiResponse(responseCode = "201", description = "Created", content = [Content(schema = Schema(implementation = User::class))]) ]
     )
+
+    @CrossOrigin(origins = ["http://localhost:5173"], methods = [RequestMethod.GET, RequestMethod.POST], allowCredentials = "true")
     @RequestMapping(
         method = [RequestMethod.POST],
         value = ["/signup"],

@@ -17,10 +17,10 @@ data class Session(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("token", required = true) val sessionId: UUID,
+    @get:JsonProperty("token", required = true) val sessionId: UUID? = null,
 
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("token", required = true) val userId: UUID
+    @get:JsonProperty("token", required = true) val userId: UUID? = null
 ) {
 
 }

@@ -1,6 +1,8 @@
 package pt.isel.leic.ps.qless.webapi.services
 
 import org.springframework.http.HttpStatus
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import pt.isel.leic.ps.qless.webapi.entities.User
 import pt.isel.leic.ps.qless.webapi.exceptions.QLessException
@@ -10,22 +12,25 @@ import pt.isel.leic.ps.qless.webapi.repositories.SessionRepository
 import pt.isel.leic.ps.qless.webapi.repositories.UserRepository
 
 @Service
-class SignupApiService(private val userRepository: UserRepository,
-                       private val sessionRepository: SessionRepository
+class SignupApiService(private val userRepository: UserRepository
         ) {
+
+    val passwordEncoder = BCryptPasswordEncoder()
     fun signUp(userPost: UserPost?): User? {
         if(userPost != null){
             var user = userPost.toUser()
             try {
-                //1 Check username doesn't exist
-                val userFound = userRepository.findByEmail(userPost.email)
-                if(userFound != null)
-                    user = userFound
+                //1 Check user doesn't exist
+                val userFound = userRepository.findByEmail(user.email)
+                if(userFound == null) {
+                    user.password = passwordEncoder.encode(userPost.password)
+                    user = userRepository.save(user)
+                }
                 else
-                    throw SignUpException("Internal error getting user", HttpStatus.INTERNAL_SERVER_ERROR)
+                    throw SignUpException("User already registered with that email!", HttpStatus.CONFLICT)
                 //3 Generate Session Token
-            }catch (exception: Exception){
-                user = userRepository.save(user)
+            }catch (e: Exception){
+                throw(e)
             }
             println(user)
             return user

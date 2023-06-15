@@ -27,7 +27,7 @@ data class User(
     @get:JsonProperty("email", required = true) val email: kotlin.String,
 
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("password", required = true) val password: kotlin.String,
+    @get:JsonProperty("password", required = true) var password: kotlin.String,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

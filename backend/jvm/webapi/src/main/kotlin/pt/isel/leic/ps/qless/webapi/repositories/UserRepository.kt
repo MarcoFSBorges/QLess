@@ -12,5 +12,7 @@ interface UserRepository :  JpaRepository<User,UUID>{
     @Query("SELECT u from User u where u.email = ?1")
     fun findByEmail(email: String) : User?
 
+    @Query("SELECT u from User u where u.email = ?1 AND u.password = ?2")
+    fun findUser(email: String, password: String): User?
 
 }
