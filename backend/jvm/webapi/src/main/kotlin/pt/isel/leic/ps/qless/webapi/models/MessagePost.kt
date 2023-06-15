@@ -15,13 +15,13 @@ import java.util.*
 data class MessagePost(
 
     @Schema(example = "null", description = "")
-    @get:JsonProperty("sender") val sender: kotlin.String ,
+    @get:JsonProperty("isEmployee") val isEmployee: Boolean ,
 
     @Schema(example = "null", description = "")
     @get:JsonProperty("content") val content: kotlin.String
 ) {
     fun toMessage(ticketId: UUID): Message {
-        return Message(null, ticketId, sender, content, OffsetDateTime.now())
+        return Message(null, ticketId, isEmployee, content, OffsetDateTime.now())
     }
 
 }

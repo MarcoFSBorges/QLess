@@ -30,7 +30,7 @@ data class Message(
 
     @Schema(example = "null", required = true, description = "")
     @Column(name = "sent_by_employee")
-    @get:JsonProperty("sender", required = true) val sender: kotlin.String,
+    @get:JsonProperty("isEmployee", required = true) val isEmployee: Boolean,
 
     @Schema(example = "null", required = true, description = "")
     @get:JsonProperty("content", required = true) val content: kotlin.String,
@@ -39,8 +39,8 @@ data class Message(
     @get:JsonProperty("timeSent", required = true) val timeSent: java.time.OffsetDateTime
 ) {
     companion object {
-        fun fromTicket(ticket: Ticket, comment: String): Message {
-            return Message(null, ticket.ticketId!!, ticket.openedBy!!.toString(),comment, OffsetDateTime.now() )
+        fun fromTicket(ticket: Ticket, comment: String, isEmployee: Boolean): Message {
+            return Message(null, ticket.ticketId!!, isEmployee,comment, OffsetDateTime.now() )
         }
     }
 
