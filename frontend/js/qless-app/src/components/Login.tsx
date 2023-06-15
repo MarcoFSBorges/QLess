@@ -23,7 +23,7 @@ export function Login() {
     e.preventDefault();
   };
 
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   const logIn = () => {
     axios
@@ -40,8 +40,8 @@ export function Login() {
           expiresIn: 3600,
           authState: { email: email },
         });
-        navigate("tickets/abc");
         alert("Successfully logged in!");
+        navigate(`/tickets/${res.data}`);
       })
       .catch((err) => {
         console.log(err);

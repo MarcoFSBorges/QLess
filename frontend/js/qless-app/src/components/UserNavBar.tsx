@@ -15,22 +15,52 @@ import Divider from "@mui/material/Divider";
 import logo from "../images/QL_1.png";
 import { useState } from "react";
 import { Settings } from "./Settings";
-import { useSignOut } from "react-auth-kit";
+import { useSignOut, useAuthHeader } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 
-const hamburguer_menu = [
-  { link: "/createTicket/:qlessId", label: "Create Ticket", isStatus: false },
-  { link: "/tickets/:qlessId", label: "My Tickets", isStatus: false },
-  { link: "/tickets/:qlessId", label: "Created", isStatus: true }, // /tickets/:qlessId?status=created
-  { link: "/tickets/:qlessId", label: "Ongoing", isStatus: true }, // /tickets/:qlessId?status=ongoing
-  { link: "/tickets/:qlessId", label: "Solved", isStatus: true }, // /tickets/:qlessId?status=solved
-  { link: "/tickets/:qlessId", label: "Cancelled", isStatus: true }, // /tickets/:qlessId?status=cancelled
-  { link: "/tickets/:qlessId", label: "Archived", isStatus: true }, // /tickets/:qlessId?status=archived
-  { link: "/faq", label: "F.A.Q", isStatus: false },
-  { link: "/about", label: "About", isStatus: false },
-];
-
 export function UserNavBar() {
+  const authHeader = useAuthHeader();
+
+  const hamburguer_menu = [
+    {
+      link: `/createTicket/${authHeader().split(" ")[1]}`,
+      label: "Create Ticket",
+      isStatus: false,
+    },
+    {
+      link: `/tickets/${authHeader().split(" ")[1]}`,
+      label: "My Tickets",
+      isStatus: false,
+    },
+    {
+      link: `/tickets/${authHeader().split(" ")[1]}`,
+      label: "Created",
+      isStatus: true,
+    }, // /tickets/:qlessId?status=created
+    {
+      link: `/tickets/${authHeader().split(" ")[1]}`,
+      label: "Ongoing",
+      isStatus: true,
+    }, // /tickets/:qlessId?status=ongoing
+    {
+      link: `/tickets/${authHeader().split(" ")[1]}`,
+      label: "Solved",
+      isStatus: true,
+    }, // /tickets/:qlessId?status=solved
+    {
+      link: `/tickets/${authHeader().split(" ")[1]}`,
+      label: "Cancelled",
+      isStatus: true,
+    }, // /tickets/:qlessId?status=cancelled
+    {
+      link: `/tickets/${authHeader().split(" ")[1]}`,
+      label: "Archived",
+      isStatus: true,
+    }, // /tickets/:qlessId?status=archived
+    { link: "/faq", label: "F.A.Q", isStatus: false },
+    { link: "/about", label: "About", isStatus: false },
+  ];
+
   const [anchorElHamburguer, setAnchorElHamburguer] =
     useState<null | HTMLElement>(null);
   const openHamburguer = Boolean(anchorElHamburguer);
