@@ -21,6 +21,7 @@ import gradleLogo from "../images/gradle.svg";
 import { red } from "@mui/material/colors";
 import InfoNavBar from "./InfoNavBar";
 import { styled } from "@mui/material/styles";
+import InfoItem from "./InfoItem";
 
 export function Info() {
   const [username, setUsername] = useState("");
@@ -47,137 +48,58 @@ export function Info() {
           <img className="qlessLogo" src={logo} alt="qless-logo" />
         </Container>
       </InfoNavBar>
-      <Box sx={{ width: "90%", margin: "auto", marginTop: "5%" }}>
-        <Stack spacing={5}>
-          <Paper elevation={4} sx={{ padding: "40px 10px" }}>
-            <Stack direction={{ xs: "column", sm: "row" }}>
-              <img
-                className="renderLogo margin-auto"
-                src={renderLogo}
-                alt="qless-logo"
-              />
-              <Typography
-                padding="10px"
-                margin="auto"
-                align="center"
-                variant="h4"
-                fontFamily="sans-serif"
-                gutterBottom
-                sx={{ color: "black" }}
-              >
-                This web application will utilize Render for hosting the
-                front-end, back-end, and the database infrastructure.
-              </Typography>
-            </Stack>
-          </Paper>
-          <Paper elevation={4} sx={{ padding: "40px 10px" }}>
-            <Stack direction={{ xs: "column", sm: "row" }}>
-              <Typography
-                padding="15px"
-                margin="auto"
-                align="center"
-                variant="h4"
-                fontFamily="sans-serif"
-                gutterBottom
-                sx={{ color: "black" }}
-              >
-                QLess web application developed using Kotlin, leveraging its
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        sx={{ margin: "40px 0px" }}
+      >
+        <Box width="80%">
+          <Grid
+            alignItems="center"
+            justifyContent="center"
+            container
+            rowSpacing={{ xs: 1, sm: 2, md: 3 }}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            <Grid item xs={12} md={6}>
+              <InfoItem logo={renderLogo}>
+                This web application utilizes Render for hosting the front-end,
+                back-end, and the database infrastructure.
+              </InfoItem>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <InfoItem logo={kotlinLogo}>
+                QLess web application developed with Kotlin, leveraging its
                 features and capabilities for the backend implementation.
-              </Typography>
-              <img
-                className="renderLogo margin-auto"
-                src={kotlinLogo}
-                alt="qless-logo"
-              />
-            </Stack>
-          </Paper>
-          <Paper elevation={4} sx={{ padding: "40px 10px" }}>
-            <Stack direction={{ xs: "column", sm: "row" }}>
-              <img
-                className="renderLogo margin-auto"
-                src={springLogo}
-                alt="qless-logo"
-              />
-              <Typography
-                padding="10px"
-                margin="auto"
-                align="left"
-                variant="h4"
-                fontFamily="sans-serif"
-                gutterBottom
-                sx={{ color: "black" }}
-              >
-                The backend of this web application will be built using the
-                Spring framework, harnessing its robust features and
-                functionalities.
-              </Typography>
-            </Stack>
-          </Paper>
-          <Paper elevation={4} sx={{ padding: "40px 10px" }}>
-            <Stack direction={{ xs: "column", sm: "row" }}>
-              <Typography
-                padding="10px"
-                margin="auto"
-                align="left"
-                variant="h4"
-                fontFamily="sans-serif"
-                gutterBottom
-                sx={{ color: "black" }}
-              >
-                Gradle will serve as the primary build tool for this project,
+              </InfoItem>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <InfoItem logo={springLogo}>
+                The backend of this web application uses the Spring framework,
+                harnessing its robust features and functionalities.
+              </InfoItem>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <InfoItem logo={gradleLogo}>
+                Gradle serves as the primary build tool for this project,
                 facilitating dependency management and project compilation.
-              </Typography>
-              <img
-                className="renderLogo margin-auto"
-                src={gradleLogo}
-                alt="qless-logo"
-              />
-            </Stack>
-          </Paper>
-          <Paper elevation={4} sx={{ padding: "40px 10px" }}>
-            <Stack direction={{ xs: "column", sm: "row" }}>
-              <img
-                className="renderLogo margin-auto"
-                src={reactLogo}
-                alt="qless-logo"
-              />
-              <Typography
-                padding="10px"
-                margin="auto"
-                align="left"
-                variant="h4"
-                fontFamily="sans-serif"
-                gutterBottom
-                sx={{ color: "black" }}
-              >
-                The front-end of this web application will be developed using
-                React, harnessing its powerful components and interactive UI
-                capabilities.
-              </Typography>
-            </Stack>
-          </Paper>
-          <Paper elevation={4} sx={{ padding: "40px 10px" }}>
-            <Stack direction={{ xs: "column", sm: "row" }}>
-              <Typography
-                padding="10px"
-                margin="auto"
-                align="left"
-                variant="h4"
-                fontFamily="sans-serif"
-                gutterBottom
-                sx={{ color: "black" }}
-              >
-                The UI of this web application will be designed using Material
-                UI, leveraging its sleek components and modern styling.
-              </Typography>
-              <img
-                className="renderLogo margin-auto"
-                src={muiLogo}
-                alt="qless-logo"
-              />
-            </Stack>
-          </Paper>
-        </Stack>
+              </InfoItem>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <InfoItem logo={reactLogo}>
+                The front-end of this web application uses React, harnessing its
+                powerful components and interactive UI capabilities.
+              </InfoItem>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <InfoItem logo={muiLogo}>
+                The UI of this web application uses Material UI, leveraging its
+                sleek components and modern styling.
+              </InfoItem>
+            </Grid>
+          </Grid>
+        </Box>
       </Box>
     </>
   );
