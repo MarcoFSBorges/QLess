@@ -51,11 +51,11 @@ data class Ticket(
     @get:JsonProperty("solved_date") val solvedDate: java.time.OffsetDateTime? = null,
 
     @OneToMany(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "tickedId", referencedColumnName = "ticketId")
+    @JoinColumn(name = "ticketId", referencedColumnName = "ticketId")
     @get:JsonProperty("messages")var messages: Set<Message>? = null,
 
     @OneToMany(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "tickedId", referencedColumnName = "ticketId")
+    @JoinColumn(name = "ticketId", referencedColumnName = "ticketId")
     @get:JsonProperty("attachments")var attachments: Set<Attachment>? = null
 
 
