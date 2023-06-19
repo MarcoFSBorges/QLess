@@ -56,7 +56,7 @@ data class Ticket(
 
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "tickedId", referencedColumnName = "ticketId")
-    @get:JsonProperty("messages")var attachments: Set<Attachment>? = null
+    @get:JsonProperty("attachments")var attachments: Set<Attachment>? = null
 
 
 ) {
