@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
 import io.swagger.v3.oas.annotations.responses.*
 import io.swagger.v3.oas.annotations.security.*
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -56,7 +57,7 @@ class CategoriesApiController(private val categoriesApiService: CategoriesApiSer
             @Parameter(description = "ID of category to retrieve", required = true)
             @PathVariable("categoryId")
             categoryId: java.util.UUID): ResponseEntity<Unit> {
-        return ResponseEntity.ok(categoriesApiService.deleteCategoryById(categoryId))
+        return ResponseEntity(categoriesApiService.deleteCategoryById(categoryId), HttpStatus.NO_CONTENT)
     }
 
     @Operation(

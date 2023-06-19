@@ -8,13 +8,18 @@ import pt.isel.leic.ps.qless.webapi.exceptions.CategoriesException
 import pt.isel.leic.ps.qless.webapi.exceptions.TeamsException
 import pt.isel.leic.ps.qless.webapi.models.CategoryPost
 import pt.isel.leic.ps.qless.webapi.repositories.CategoryRepository
+import pt.isel.leic.ps.qless.webapi.repositories.CategoryTeamRepository
 import java.util.*
 
 @Service
 class CategoriesApiService(
         private val categoryRepository: CategoryRepository,
+        private val categoryTeamRepository: CategoryTeamRepository,
 ) {
     fun createCategory(categoryPost: CategoryPost): Category? {
+        if(categoryPost.name.isEmpty()){
+            throw CategoriesException("Enter a name to save category", HttpStatus.BAD_REQUEST)
+        }
         try {
             return categoryRepository.save(categoryPost.toCategory())
         } catch (exception: Exception) {
@@ -23,8 +28,14 @@ class CategoriesApiService(
 
     }
 
-    fun deleteCategoryById(categoryId: UUID): Unit {
-        //TODO delete row on team category as well to remove category from team
+    fun deleteCategoryById(categoryId: UUID) {
+        if(categoryTeamRepository.existsById(categoryId)){
+            try {
+                categoryTeamRepository.deleteById(categoryId)
+            }catch (exception: Exception){
+                throw CategoriesException("Error deleting category team relationship", HttpStatus.INTERNAL_SERVER_ERROR)
+            }
+        }
         try {
             categoryRepository.deleteById(categoryId)
         }catch (exception: Exception){
