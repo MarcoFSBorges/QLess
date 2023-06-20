@@ -13,6 +13,7 @@ import pt.isel.leic.ps.qless.webapi.models.TicketPost
 import pt.isel.leic.ps.qless.webapi.repositories.AttachmentRepository
 import pt.isel.leic.ps.qless.webapi.repositories.MessageRepository
 import pt.isel.leic.ps.qless.webapi.repositories.TicketRepository
+import pt.isel.leic.ps.qless.webapi.repositories.UserRepository
 import java.util.*
 
 private const val TICKET_ID_DOES_NOT_EXIST = "Ticket Id does not exist"
@@ -20,13 +21,15 @@ private const val ERROR_GETTING_TICKET = "Error getting ticket"
 
 @Service
 class TicketsApiService(
-        private val ticketRepository: TicketRepository, 
+        private val userRepository: UserRepository,
+        private val ticketRepository: TicketRepository,
         private val messageRepository : MessageRepository,
         private val attachmentRepository: AttachmentRepository
         ) {
-    fun getAllTickets(): List<Ticket> {
+    fun getAllTicketsByUser(userId: UUID): List<Any?> {
         try {
-            return ticketRepository.findAll()
+            val userTickets = ticketRepository.getAllTicketsByUser(userId)
+            return userTickets
         }catch (exception: Exception){
             throw TicketsException("Error getting tickets", HttpStatus.INTERNAL_SERVER_ERROR)
         }
