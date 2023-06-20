@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import pt.isel.leic.ps.qless.webapi.entities.Category
 import pt.isel.leic.ps.qless.webapi.exceptions.CategoriesException
-import pt.isel.leic.ps.qless.webapi.exceptions.TeamsException
 import pt.isel.leic.ps.qless.webapi.models.CategoryPost
 import pt.isel.leic.ps.qless.webapi.repositories.CategoryRepository
 import pt.isel.leic.ps.qless.webapi.repositories.CategoryTeamRepository
@@ -28,6 +27,24 @@ class CategoriesApiService(
 
     }
 
+    fun getAllCategories(): List<Category>? {
+        try {
+            return categoryRepository.findAll()
+        }catch (exception: Exception){
+            throw CategoriesException("Error getting categories", HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+    fun getCategoryById(categoryId: UUID): Category? {
+        try {
+            val category = categoryRepository.findByIdOrNull(categoryId)
+            if(category != null)
+                return category
+            else
+                throw CategoriesException("Category Id does not exist", HttpStatus.NOT_FOUND)
+        } catch (exception: Exception) {
+            throw CategoriesException("Error getting categories", HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
     fun deleteCategoryById(categoryId: UUID) {
         if(categoryTeamRepository.existsById(categoryId)){
             try {
@@ -43,25 +60,8 @@ class CategoriesApiService(
         }
     }
 
-    fun getAllCategories(): List<Category>? {
-        try {
-            return categoryRepository.findAll()
-        }catch (exception: Exception){
-            throw CategoriesException("Error getting categories", HttpStatus.INTERNAL_SERVER_ERROR)
-        }
-    }
 
-    fun getCategoryById(categoryId: UUID): Category? {
-        try {
-            val category = categoryRepository.findByIdOrNull(categoryId)
-            if(category != null)
-                return category
-            else
-                throw CategoriesException("Category Id does not exist", HttpStatus.NOT_FOUND)
-        } catch (exception: Exception) {
-            throw CategoriesException("Error getting categories", HttpStatus.INTERNAL_SERVER_ERROR)
-        }
-    }
+
 
     fun updateCategoryById(categoryId: UUID, category: Category): Category? {
         try {
