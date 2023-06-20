@@ -63,7 +63,7 @@ function ReactRouter() {
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/reset/:resetId" element={<ResetPassword />} />
           <Route
-            path="/tickets/:qlessId"
+            path="/tickets"
             element={
               <RequireAuth loginPath="/login">
                 <div>
