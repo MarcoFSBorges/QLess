@@ -34,7 +34,6 @@ class CategoriesApiServiceTests {
     private lateinit var categoriesApiService: CategoriesApiService
 
 
-
     @Test
     fun createCategorySimpleTest(){
         // Arrange
@@ -67,9 +66,6 @@ class CategoriesApiServiceTests {
             //Act
             categoriesApiService.createCategory(categoryPost)
         }
-
-
-
     }
 
     @Test
@@ -293,6 +289,6 @@ class CategoriesApiServiceTests {
         assertEquals(expected.eta, actual.eta)
         assertEquals(expected.priority!!.value, actual.priority!!.value)
     }
-    private fun buildNewCategory(id: UUID, priority: Category.Priority = Category.Priority.MEDIUM):Category {return Category(id,"New Category", 1,Category.Priority.MEDIUM)}
+    private fun buildNewCategory(id: UUID, priority: Category.Priority = Category.Priority.MEDIUM):Category {return Category(id,"New Category", 1,priority)}
 
 }

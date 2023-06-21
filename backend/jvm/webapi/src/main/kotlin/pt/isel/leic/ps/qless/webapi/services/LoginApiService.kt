@@ -22,7 +22,6 @@ class LoginApiService(
     fun login(credentials: Credentials?): User? /*Token?*/ {
         if (credentials != null) {
             try {
-
                 // Check user exists in db
                 val registeredUser = userRepository.findByEmail(credentials.email)
                 if (registeredUser != null) {

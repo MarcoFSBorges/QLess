@@ -11,7 +11,7 @@ import pt.isel.leic.ps.qless.webapi.entities.Team
 data class TeamPost(
 
     @Schema(example = "null", description = "")
-    @get:JsonProperty("name") val name: kotlin.String? = null
+    @get:JsonProperty("name") val name: kotlin.String
 ) {
     fun toTeam(): Team {
         return Team(null, name)

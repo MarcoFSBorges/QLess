@@ -13,15 +13,6 @@ class CookieService(private val loginService: LoginApiService) {
         return encoder.encodeToString("${name}:${password}".encodeToByteArray())
     }
 
-    /*fun setCookie(credentials: Credentials?): ResponseCookie {
-            val token = JwtUtilService.generateToken(loginService.login(credentials))
-            return  ResponseCookie.from("user-qless", token)
-                .httpOnly(true)
-                .maxAge(24 * 60 * 60)
-                .path("/") // Set the cookie path to be valid for the entire application
-                .build()
-    }*/
-
     fun deleteCookie(): ResponseCookie {
         return ResponseCookie.from("user-qless","")
             .maxAge(0)

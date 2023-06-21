@@ -75,7 +75,6 @@ class TicketsApiService(
         }
     }
 
-
     fun createTicketMessage(ticketId: UUID, messagePost: MessagePost): Message? {
 
         if(!ticketRepository.existsById(ticketId))

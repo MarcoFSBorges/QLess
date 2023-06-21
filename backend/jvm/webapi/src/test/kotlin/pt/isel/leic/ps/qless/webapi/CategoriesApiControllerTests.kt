@@ -3,16 +3,13 @@ package pt.isel.leic.ps.qless.webapi
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
@@ -20,11 +17,9 @@ import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
 import pt.isel.leic.ps.qless.webapi.apis.CategoriesApiController
 import pt.isel.leic.ps.qless.webapi.entities.Category
-import pt.isel.leic.ps.qless.webapi.entities.CategoryTeam
-import pt.isel.leic.ps.qless.webapi.exceptions.CategoriesException
 import pt.isel.leic.ps.qless.webapi.models.CategoryPost
 import pt.isel.leic.ps.qless.webapi.services.CategoriesApiService
-import java.util.UUID
+import java.util.*
 
 @ExtendWith(MockitoExtension::class)
 class CategoriesApiControllerTests {
