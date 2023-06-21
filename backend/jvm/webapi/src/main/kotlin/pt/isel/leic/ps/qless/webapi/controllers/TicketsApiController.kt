@@ -14,6 +14,7 @@ import pt.isel.leic.ps.qless.webapi.entities.Message
 import pt.isel.leic.ps.qless.webapi.entities.Ticket
 import pt.isel.leic.ps.qless.webapi.models.*
 import pt.isel.leic.ps.qless.webapi.services.TicketsApiService
+import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -155,21 +156,27 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         return ResponseEntity.ok(ticketsApiService.deleteTicketMessageById(ticketId,messageId))
     }
 
+
     @Operation(
-        summary = "Retrieve all tickets",
-        operationId = "getAllTickets",
+        summary = "Retrieve all tickets by user",
+        operationId = "getAllTicketsByUser",
         description = """""",
         responses = [
             ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Ticket::class))]) ],
         security = [ SecurityRequirement(name = "basicAuth") ]
     )
+
+    @CrossOrigin(origins = ["http://localhost:5173"], methods = [RequestMethod.GET], allowCredentials = "true")
     @RequestMapping(
         method = [RequestMethod.GET],
-        value = ["/tickets"],
+        value = ["/tickets/{userId}"],
         produces = ["application/json"]
     )
-    fun getAllTickets(): ResponseEntity<List<Ticket>> {
-        return ResponseEntity.ok(ticketsApiService.getAllTickets())
+    fun getAllTicketsByUser(
+            @Parameter(description = "Id of user to retrieve his tickets", required = true)
+            @PathVariable("userId")
+            userId: UUID): ResponseEntity<List<Any?>> {
+        return ResponseEntity.ok(ticketsApiService.getAllTicketsByUser(userId))
     }
 
     @Operation(
@@ -221,7 +228,7 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
     )
     @RequestMapping(
         method = [RequestMethod.GET],
-        value = ["/tickets/{ticketId}"],
+        value = ["/tickets/{userId}/{ticketId}"],
         produces = ["application/json"]
     )
     fun getTicketById(
