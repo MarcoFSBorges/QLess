@@ -1,26 +1,42 @@
 package pt.isel.leic.ps.qless.webapi.apis
 
+import pt.isel.leic.ps.qless.webapi.models.Attachment
+import pt.isel.leic.ps.qless.webapi.models.AttachmentPost
+import pt.isel.leic.ps.qless.webapi.models.Message
+import pt.isel.leic.ps.qless.webapi.models.MessagePost
+import pt.isel.leic.ps.qless.webapi.models.Ticket
+import pt.isel.leic.ps.qless.webapi.models.TicketPost
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
 import io.swagger.v3.oas.annotations.responses.*
 import io.swagger.v3.oas.annotations.security.*
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.annotation.Validated
+
 import org.springframework.web.bind.annotation.*
-import pt.isel.leic.ps.qless.webapi.entities.Attachment
-import pt.isel.leic.ps.qless.webapi.entities.Message
-import pt.isel.leic.ps.qless.webapi.entities.Ticket
-import pt.isel.leic.ps.qless.webapi.models.*
-import pt.isel.leic.ps.qless.webapi.services.TicketsApiService
-import java.util.*
+import org.springframework.validation.annotation.Validated
+import org.springframework.web.context.request.NativeWebRequest
+import org.springframework.beans.factory.annotation.Autowired
+
 import javax.validation.Valid
+import javax.validation.constraints.DecimalMax
+import javax.validation.constraints.DecimalMin
+import javax.validation.constraints.Email
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Pattern
+import javax.validation.constraints.Size
+
+import kotlin.collections.List
+import kotlin.collections.Map
 
 @RestController
 @Validated
 @RequestMapping("\${api.base-path:}")
-class TicketsApiController(private val ticketsApiService: TicketsApiService) {
+class TicketsApiController() {
 
     @Operation(
         summary = "Create a new attachment for a ticket",
@@ -36,14 +52,8 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun createAttachment(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID,
-            @Parameter(description = "Attachment object to be created")
-            @Valid @RequestBody(required = false)
-            attachmentPost: AttachmentPost?): ResponseEntity<Attachment> {
-        return ResponseEntity.ok(attachmentPost?.let { ticketsApiService.createAttachment(ticketId, it) })
+    fun createAttachment(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID,@Parameter(description = "Attachment object to be created") @Valid @RequestBody(required = false) attachmentPost: AttachmentPost?): ResponseEntity<Attachment> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -60,12 +70,8 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun createTicket(
-            @Parameter(description = "Ticket object to be created")
-            @Valid
-            @RequestBody(required = false)
-            ticketPost: TicketPost?): ResponseEntity<Ticket> {
-        return ResponseEntity.ok(ticketsApiService.createTicket(ticketPost!!))
+    fun createTicket(@Parameter(description = "Ticket object to be created") @Valid @RequestBody(required = false) ticketPost: TicketPost?): ResponseEntity<Ticket> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -82,15 +88,8 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun createTicketMessage(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID,
-            @Parameter(description = "Message object to be created")
-            @Valid
-            @RequestBody(required = false)
-            messagePost: MessagePost?): ResponseEntity<Message> {
-        return ResponseEntity.ok(ticketsApiService.createTicketMessage(ticketId, messagePost!!))
+    fun createTicketMessage(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID,@Parameter(description = "Message object to be created") @Valid @RequestBody(required = false) messagePost: MessagePost?): ResponseEntity<Message> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -105,14 +104,8 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         method = [RequestMethod.DELETE],
         value = ["/tickets/{ticketId}/attachments/{attachmentId}"]
     )
-    fun deleteAttachmentById(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID,
-            @Parameter(description = "ID of Message to retrieve", required = true)
-            @PathVariable("attachmentId")
-            attachmentId: java.util.UUID): ResponseEntity<Unit> {
-        return ResponseEntity.ok(ticketsApiService.deleteAttachmentById(ticketId,attachmentId))
+    fun deleteAttachmentById(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID,@Parameter(description = "ID of Message to retrieve", required = true) @PathVariable("attachmentId") attachmentId: java.util.UUID): ResponseEntity<Unit> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -127,11 +120,8 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         method = [RequestMethod.DELETE],
         value = ["/tickets/{ticketId}"]
     )
-    fun deleteTicketById(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID): ResponseEntity<Unit> {
-        return ResponseEntity.ok(ticketsApiService.deleteTicketById(ticketId))
+    fun deleteTicketById(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID): ResponseEntity<Unit> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -146,37 +136,25 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         method = [RequestMethod.DELETE],
         value = ["/tickets/{ticketId}/messages/{messageId}"]
     )
-    fun deleteTicketMessageById(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID,
-            @Parameter(description = "ID of Message to retrieve", required = true)
-            @PathVariable("messageId")
-            messageId: java.util.UUID): ResponseEntity<Unit> {
-        return ResponseEntity.ok(ticketsApiService.deleteTicketMessageById(ticketId,messageId))
+    fun deleteTicketMessageById(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID,@Parameter(description = "ID of Message to retrieve", required = true) @PathVariable("messageId") messageId: java.util.UUID): ResponseEntity<Unit> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
-
     @Operation(
-        summary = "Retrieve all tickets by user",
-        operationId = "getAllTicketsByUser",
+        summary = "Retrieve all tickets",
+        operationId = "getAllTickets",
         description = """""",
         responses = [
             ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Ticket::class))]) ],
         security = [ SecurityRequirement(name = "basicAuth") ]
     )
-
-    @CrossOrigin(origins = ["http://localhost:5173"], methods = [RequestMethod.GET], allowCredentials = "true")
     @RequestMapping(
         method = [RequestMethod.GET],
-        value = ["/tickets/{userId}"],
+        value = ["/tickets"],
         produces = ["application/json"]
     )
-    fun getAllTicketsByUser(
-            @Parameter(description = "Id of user to retrieve his tickets", required = true)
-            @PathVariable("userId")
-            userId: UUID): ResponseEntity<List<Any?>> {
-        return ResponseEntity.ok(ticketsApiService.getAllTicketsByUser(userId))
+    fun getAllTickets(): ResponseEntity<List<Ticket>> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -194,7 +172,7 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         produces = ["application/json"]
     )
     fun getAttachmentById(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID,@Parameter(description = "ID of Message to retrieve", required = true) @PathVariable("attachmentId") attachmentId: java.util.UUID): ResponseEntity<Attachment> {
-        return ResponseEntity.ok(ticketsApiService.getAttachmentById(ticketId,attachmentId))
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -210,10 +188,7 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         value = ["/tickets/{ticketId}/attachments"],
         produces = ["application/json"]
     )
-    fun getAttachmentsByTicketId(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID): ResponseEntity<List<Attachment>> {
+    fun getAttachmentsByTicketId(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID): ResponseEntity<List<Attachment>> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
@@ -228,14 +203,11 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
     )
     @RequestMapping(
         method = [RequestMethod.GET],
-        value = ["/tickets/{userId}/{ticketId}"],
+        value = ["/tickets/{ticketId}"],
         produces = ["application/json"]
     )
-    fun getTicketById(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: UUID): ResponseEntity<Ticket> {
-        return ResponseEntity.ok(ticketsApiService.getTicketById(ticketId))
+    fun getTicketById(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID): ResponseEntity<Ticket> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -252,14 +224,8 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         value = ["/tickets/{ticketId}/messages/{messageId}"],
         produces = ["application/json"]
     )
-    fun getTicketMessageById(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID,
-            @Parameter(description = "ID of Message to retrieve", required = true)
-            @PathVariable("messageId")
-            messageId: java.util.UUID): ResponseEntity<Message> {
-        return ResponseEntity.ok(ticketsApiService.getTicketMessageById(ticketId,messageId))
+    fun getTicketMessageById(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID,@Parameter(description = "ID of Message to retrieve", required = true) @PathVariable("messageId") messageId: java.util.UUID): ResponseEntity<Message> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -277,7 +243,7 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         produces = ["application/json"]
     )
     fun getTicketMessages(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID): ResponseEntity<List<Message>> {
-        return ResponseEntity.ok(ticketsApiService.getTicketMessages(ticketId))
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -295,18 +261,8 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun updateAttachmentById(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID,
-            @Parameter(description = "ID of Message to retrieve", required = true)
-            @PathVariable("attachmentId")
-            attachmentId: java.util.UUID,
-            @Parameter(description = "Attachment object to be updated")
-            @Valid
-            @RequestBody(required = false)
-            attachment: Attachment?): ResponseEntity<Attachment> {
-        return ResponseEntity.ok(ticketsApiService.updateAttachmentById(ticketId, attachmentId, attachment!!))
+    fun updateAttachmentById(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID,@Parameter(description = "ID of Message to retrieve", required = true) @PathVariable("attachmentId") attachmentId: java.util.UUID,@Parameter(description = "Attachment object to be updated") @Valid @RequestBody(required = false) attachment: Attachment?): ResponseEntity<Attachment> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -324,15 +280,8 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun updateTicketById(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID,
-            @Parameter(description = "Ticket object to be updated")
-            @Valid
-            @RequestBody(required = false)
-            ticket: Ticket?): ResponseEntity<Ticket> {
-        return ResponseEntity.ok(ticketsApiService.updateTicketById(ticketId, ticket!!))
+    fun updateTicketById(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID,@Parameter(description = "Ticket object to be updated") @Valid @RequestBody(required = false) ticket: Ticket?): ResponseEntity<Ticket> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
     @Operation(
@@ -350,17 +299,7 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         produces = ["application/json"],
         consumes = ["application/json"]
     )
-    fun updateTicketMessageById(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: java.util.UUID,
-            @Parameter(description = "ID of Message to retrieve", required = true)
-            @PathVariable("messageId")
-            messageId: java.util.UUID,
-            @Parameter(description = "Message object to be updated")
-            @Valid
-            @RequestBody(required = false)
-            message: Message?): ResponseEntity<Message> {
-        return ResponseEntity.ok(ticketsApiService.updateTicketMessageById(ticketId, messageId, message!!))
+    fun updateTicketMessageById(@Parameter(description = "ID of ticket to retrieve", required = true) @PathVariable("ticketId") ticketId: java.util.UUID,@Parameter(description = "ID of Message to retrieve", required = true) @PathVariable("messageId") messageId: java.util.UUID,@Parameter(description = "Message object to be updated") @Valid @RequestBody(required = false) message: Message?): ResponseEntity<Message> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 }

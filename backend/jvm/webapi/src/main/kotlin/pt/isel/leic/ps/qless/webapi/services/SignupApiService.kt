@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import pt.isel.leic.ps.qless.webapi.entities.Session
 import pt.isel.leic.ps.qless.webapi.entities.User
 import pt.isel.leic.ps.qless.webapi.exceptions.QLessException
 import pt.isel.leic.ps.qless.webapi.exceptions.SignUpException
@@ -12,8 +13,10 @@ import pt.isel.leic.ps.qless.webapi.repositories.SessionRepository
 import pt.isel.leic.ps.qless.webapi.repositories.UserRepository
 
 @Service
-class SignupApiService(private val userRepository: UserRepository
-        ) {
+class SignupApiService(
+    private val userRepository: UserRepository,
+    private val sessionRepository: SessionRepository
+    ) {
 
     val passwordEncoder = BCryptPasswordEncoder()
     fun signUp(userPost: UserPost?): User? {
@@ -29,6 +32,7 @@ class SignupApiService(private val userRepository: UserRepository
                 else
                     throw SignUpException("User already registered with that email!", HttpStatus.CONFLICT)
                 //3 Generate Session Token
+                sessionRepository.save(Session(null, user.userId))
             }catch (e: Exception){
                 throw(e)
             }

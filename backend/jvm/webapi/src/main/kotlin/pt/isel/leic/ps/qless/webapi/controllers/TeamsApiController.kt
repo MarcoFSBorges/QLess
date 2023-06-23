@@ -71,7 +71,10 @@ class TeamsApiController(private val teamsApiService: TeamsApiService) {
         value = ["/teams"],
         produces = ["application/json"]
     )
-    fun getAllTeams(): ResponseEntity<List<Team>> {
+    fun getAllTeams(
+            @CookieValue("qless-cookie")
+            qlessCookie: String
+        ): ResponseEntity<List<Team>> {
         return ResponseEntity.ok(teamsApiService.getAllTeams())
     }
 
@@ -114,7 +117,10 @@ class TeamsApiController(private val teamsApiService: TeamsApiService) {
             @Parameter(description = "Team object to be updated")
             @Valid
             @RequestBody(required = false)
-            team: Team?): ResponseEntity<Team> {
+            team: Team?,
+            @CookieValue("qless-cookie")
+            qlessCookie: String
+        ): ResponseEntity<Team> {
         return ResponseEntity.ok(teamsApiService.updateTeamById(teamId, team!!))
     }
 }

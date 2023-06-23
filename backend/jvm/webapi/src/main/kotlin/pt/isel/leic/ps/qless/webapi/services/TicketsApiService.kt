@@ -18,6 +18,9 @@ import java.util.*
 
 private const val TICKET_ID_DOES_NOT_EXIST = "Ticket Id does not exist"
 private const val ERROR_GETTING_TICKET = "Error getting ticket"
+private const val TICKET_DOES_NOT_EXIST = "Ticket does not exist"
+private const val ERROR_SAVING_ATTACHMENT = "Error saving attachment"
+private const val ERROR_GETTING_TICKETS = "Error getting tickets"
 
 @Service
 class TicketsApiService(
@@ -31,7 +34,7 @@ class TicketsApiService(
             val userTickets = ticketRepository.getAllTicketsByUser(userId)
             return userTickets
         }catch (exception: Exception){
-            throw TicketsException("Error getting tickets", HttpStatus.INTERNAL_SERVER_ERROR)
+            throw TicketsException(ERROR_GETTING_TICKETS, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 
@@ -45,11 +48,13 @@ class TicketsApiService(
         }catch (exception: Exception){
             throw TicketsException(ERROR_GETTING_TICKET, HttpStatus.INTERNAL_SERVER_ERROR)
         }
+        if(ticket == null)
+            throw TicketsException(TICKET_DOES_NOT_EXIST, HttpStatus.NOT_FOUND)
 
         try{
             return attachmentRepository.save(attachmentPost.toAttachment(ticketId))
         }catch (exception: Exception){
-            throw TicketsException("Error saving attachment", HttpStatus.INTERNAL_SERVER_ERROR)
+            throw TicketsException(ERROR_SAVING_ATTACHMENT, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 

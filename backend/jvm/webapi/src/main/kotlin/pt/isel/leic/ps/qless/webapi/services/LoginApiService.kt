@@ -31,7 +31,7 @@ class LoginApiService(
                         return registeredUser
                     }
                     else throw SignUpException("Wrong password.", HttpStatus.FORBIDDEN)
-                } else throw SignUpException("User with that email doesn't exist.", HttpStatus.NOT_FOUND)
+                } else throw SignUpException("User with that email doesn't exist.", HttpStatus.BAD_REQUEST)
 
             } catch (e: SignUpException) {
                 throw (e)
