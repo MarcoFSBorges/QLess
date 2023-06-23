@@ -38,11 +38,13 @@ class TeamsApiController(private val teamsApiService: TeamsApiService) {
             @Parameter(description = "Team object to be created")
             @Valid
             @RequestBody(required = false)
-            teamPost: TeamPost?): ResponseEntity<Team> {
+            teamPost: TeamPost?,
+            @CookieValue("qless-cookie")
+            qlessCookie: String): ResponseEntity<Team> {
         try{
             return ResponseEntity.ok(teamsApiService.createTeam(teamPost!!))
         }catch (exception: TeamsException){
-            throw RuntimeException(exception)
+            throw ResponseStatusException(exception.statusCode, exception.message, exception)
         }
     }
 
@@ -89,7 +91,7 @@ class TeamsApiController(private val teamsApiService: TeamsApiService) {
         try{
             return ResponseEntity.ok(teamsApiService.getAllTeams())
         }catch (exception: TeamsException){
-            throw RuntimeException(exception)
+            throw ResponseStatusException(exception.statusCode, exception.message, exception)
         }
     }
 
