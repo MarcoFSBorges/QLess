@@ -8,7 +8,9 @@ import io.swagger.v3.oas.annotations.security.*
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 import pt.isel.leic.ps.qless.webapi.entities.Team
+import pt.isel.leic.ps.qless.webapi.exceptions.TeamsException
 import pt.isel.leic.ps.qless.webapi.models.TeamPost
 import pt.isel.leic.ps.qless.webapi.services.TeamsApiService
 import javax.validation.Valid
@@ -37,7 +39,11 @@ class TeamsApiController(private val teamsApiService: TeamsApiService) {
             @Valid
             @RequestBody(required = false)
             teamPost: TeamPost?): ResponseEntity<Team> {
-        return ResponseEntity.ok(teamsApiService.createTeam(teamPost!!))
+        try{
+            return ResponseEntity.ok(teamsApiService.createTeam(teamPost!!))
+        }catch (exception: TeamsException){
+            throw RuntimeException(exception)
+        }
     }
 
     @Operation(
@@ -55,7 +61,11 @@ class TeamsApiController(private val teamsApiService: TeamsApiService) {
             @Parameter(description = "ID of team to retrieve", required = true)
             @PathVariable("teamId") teamId: java.util.UUID):
             ResponseEntity<Unit> {
-        return ResponseEntity.ok(teamsApiService.deleteTeamById(teamId))
+        try{
+            return ResponseEntity.ok(teamsApiService.deleteTeamById(teamId))
+        }catch (exception: TeamsException){
+            throw ResponseStatusException(exception.statusCode, exception.message, exception)
+        }
     }
 
     @Operation(
@@ -75,7 +85,12 @@ class TeamsApiController(private val teamsApiService: TeamsApiService) {
             @CookieValue("qless-cookie")
             qlessCookie: String
         ): ResponseEntity<List<Team>> {
-        return ResponseEntity.ok(teamsApiService.getAllTeams())
+        println(qlessCookie)
+        try{
+            return ResponseEntity.ok(teamsApiService.getAllTeams())
+        }catch (exception: TeamsException){
+            throw RuntimeException(exception)
+        }
     }
 
     @Operation(
@@ -94,7 +109,11 @@ class TeamsApiController(private val teamsApiService: TeamsApiService) {
             @Parameter(description = "ID of team to retrieve", required = true)
             @PathVariable("teamId")
             teamId: java.util.UUID): ResponseEntity<Team> {
-        return ResponseEntity.ok(teamsApiService.getTeamById(teamId))
+        try{
+            return ResponseEntity.ok(teamsApiService.getTeamById(teamId))
+        }catch (exception: TeamsException){
+            throw ResponseStatusException(exception.statusCode, exception.message, exception)
+        }
     }
 
     @Operation(
@@ -121,6 +140,10 @@ class TeamsApiController(private val teamsApiService: TeamsApiService) {
             @CookieValue("qless-cookie")
             qlessCookie: String
         ): ResponseEntity<Team> {
-        return ResponseEntity.ok(teamsApiService.updateTeamById(teamId, team!!))
+        try{
+            return ResponseEntity.ok(teamsApiService.updateTeamById(teamId, team!!))
+        }catch (exception: TeamsException){
+            throw ResponseStatusException(exception.statusCode, exception.message, exception)
+        }
     }
 }

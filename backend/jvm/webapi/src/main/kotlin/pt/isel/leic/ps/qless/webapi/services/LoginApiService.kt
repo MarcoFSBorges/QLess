@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import pt.isel.leic.ps.qless.webapi.entities.Session
 import pt.isel.leic.ps.qless.webapi.entities.User
+import pt.isel.leic.ps.qless.webapi.exceptions.LoginException
 import pt.isel.leic.ps.qless.webapi.exceptions.SignUpException
 import pt.isel.leic.ps.qless.webapi.models.Credentials
 import pt.isel.leic.ps.qless.webapi.models.Token
@@ -30,8 +31,8 @@ class LoginApiService(
                         sessionRepository.save(Session(null, registeredUser.userId))
                         return registeredUser
                     }
-                    else throw SignUpException("Wrong password.", HttpStatus.FORBIDDEN)
-                } else throw SignUpException("User with that email doesn't exist.", HttpStatus.BAD_REQUEST)
+                    else throw LoginException("Wrong password.", HttpStatus.FORBIDDEN)
+                } else throw LoginException("User with that email doesn't exist.", HttpStatus.BAD_REQUEST)
 
             } catch (e: SignUpException) {
                 throw (e)
