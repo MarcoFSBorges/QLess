@@ -40,27 +40,32 @@ class TeamsApiService(
     }
 
     fun getTeamById(teamId: UUID): Team? {
+        var team : Team?
         try {
-            val team = teamRepository.findByIdOrNull(teamId)
-            if(team != null)
-                return team
-            else
-                throw TeamsException("Team Id does not exist", HttpStatus.NOT_FOUND)
+             team = teamRepository.findByIdOrNull(teamId)
         } catch (exception: Exception) {
             throw TeamsException("Error getting teams", HttpStatus.INTERNAL_SERVER_ERROR)
         }
+
+        if(team != null)
+            return team
+        else
+            throw TeamsException("Team Id does not exist", HttpStatus.NOT_FOUND)
     }
 
     fun updateTeamById(teamId: UUID, team: Team): Team? {
+        var savedTeam: Team?
         try {
-            val savedTeam = teamRepository.findByIdOrNull(teamId)
-            if(savedTeam != null)
-                return teamRepository.save(team)
-            else
-                throw TeamsException("Team Id does not exist", HttpStatus.NOT_FOUND)
+             savedTeam = teamRepository.findByIdOrNull(teamId)
+
         }catch (exception: Exception){
             throw TeamsException("Error saving team", HttpStatus.INTERNAL_SERVER_ERROR)
         }
+
+        if(savedTeam != null)
+            return teamRepository.save(team)
+        else
+            throw TeamsException("Team Id does not exist", HttpStatus.NOT_FOUND)
     }
 
 

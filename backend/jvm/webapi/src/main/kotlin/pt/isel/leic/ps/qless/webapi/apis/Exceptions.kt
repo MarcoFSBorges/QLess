@@ -18,6 +18,9 @@ class DefaultExceptionHandler {
     @ExceptionHandler(value = [ApiException::class])
     fun onApiException(ex: ApiException, response: HttpServletResponse): Unit =
         response.sendError(ex.code, ex.message)
+    @ExceptionHandler(value = [RuntimeException::class])
+    fun onRuntimeException(ex: ApiException, response: HttpServletResponse): Unit =
+        response.sendError(ex.code, ex.message)
 
     @ExceptionHandler(value = [NotImplementedError::class])
     fun onNotImplemented(ex: NotImplementedError, response: HttpServletResponse): Unit =
