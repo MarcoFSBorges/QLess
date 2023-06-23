@@ -159,7 +159,7 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
 
     @Operation(
         summary = "Retrieve all tickets by user",
-        operationId = "getAllTicketsByUser",
+        operationId = "getAllTickets",
         description = """""",
         responses = [
             ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Ticket::class))]) ],
@@ -169,14 +169,13 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
     @CrossOrigin(origins = ["http://localhost:5173"], methods = [RequestMethod.GET], allowCredentials = "true")
     @RequestMapping(
         method = [RequestMethod.GET],
-        value = ["/tickets/{userId}"],
+        value = ["/tickets"],
         produces = ["application/json"]
     )
-    fun getAllTicketsByUser(
-            @Parameter(description = "Id of user to retrieve his tickets", required = true)
-            @PathVariable("userId")
-            userId: UUID): ResponseEntity<List<Any?>> {
-        return ResponseEntity.ok(ticketsApiService.getAllTicketsByUser(userId))
+    fun getAllTickets(
+            @CookieValue("qless-cookie")
+            qlessCookie: String): ResponseEntity<List<Any?>> {
+        return ResponseEntity.ok(ticketsApiService.getAllTickets(qlessCookie))
     }
 
     @Operation(
@@ -226,9 +225,11 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
             ApiResponse(responseCode = "404", description = "Not found") ],
         security = [ SecurityRequirement(name = "basicAuth") ]
     )
+
+    @CrossOrigin(origins = ["http://localhost:5173"], methods = [RequestMethod.GET], allowCredentials = "true")
     @RequestMapping(
         method = [RequestMethod.GET],
-        value = ["/tickets/{userId}/{ticketId}"],
+        value = ["/ticket/{ticketId}"],
         produces = ["application/json"]
     )
     fun getTicketById(

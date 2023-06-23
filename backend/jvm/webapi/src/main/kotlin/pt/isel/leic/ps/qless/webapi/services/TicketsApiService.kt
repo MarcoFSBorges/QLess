@@ -14,6 +14,7 @@ import pt.isel.leic.ps.qless.webapi.repositories.AttachmentRepository
 import pt.isel.leic.ps.qless.webapi.repositories.MessageRepository
 import pt.isel.leic.ps.qless.webapi.repositories.TicketRepository
 import pt.isel.leic.ps.qless.webapi.repositories.UserRepository
+import pt.isel.leic.ps.qless.webapi.utils.JwtUtil
 import java.util.*
 
 private const val TICKET_ID_DOES_NOT_EXIST = "Ticket Id does not exist"
@@ -29,9 +30,14 @@ class TicketsApiService(
         private val messageRepository : MessageRepository,
         private val attachmentRepository: AttachmentRepository
         ) {
-    fun getAllTicketsByUser(userId: UUID): List<Any?> {
+
+
+    fun getAllTickets(cookie: String): List<Any?> {
+        /*  Decode cookie */
+        /*  Get userId from decoded cookie */
+        val decodedJWTCookie = JwtUtil.validateToken(cookie)
         try {
-            val userTickets = ticketRepository.getAllTicketsByUser(userId)
+            val userTickets = ticketRepository.getAllTicketsByUser(decodedJWTCookie.userId!!)
             return userTickets
         }catch (exception: Exception){
             throw TicketsException(ERROR_GETTING_TICKETS, HttpStatus.INTERNAL_SERVER_ERROR)

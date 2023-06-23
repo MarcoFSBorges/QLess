@@ -8,9 +8,9 @@ import pt.isel.leic.ps.qless.webapi.entities.User
 import pt.isel.leic.ps.qless.webapi.exceptions.LoginException
 import pt.isel.leic.ps.qless.webapi.exceptions.SignUpException
 import pt.isel.leic.ps.qless.webapi.models.Credentials
-import pt.isel.leic.ps.qless.webapi.models.Token
 import pt.isel.leic.ps.qless.webapi.repositories.SessionRepository
 import pt.isel.leic.ps.qless.webapi.repositories.UserRepository
+import pt.isel.leic.ps.qless.webapi.utils.JwtUtil
 
 @Service
 class LoginApiService(
@@ -20,7 +20,7 @@ class LoginApiService(
 
     val passwordEncoder = BCryptPasswordEncoder()
 
-    fun login(credentials: Credentials?): User? /*Token?*/ {
+    fun login(credentials: Credentials?): String? {
         if (credentials != null) {
             try {
                 // Check user exists in db
@@ -29,7 +29,7 @@ class LoginApiService(
                     if (passwordEncoder.matches(credentials.password, registeredUser.password)) {
                         //Create session token for user
                         sessionRepository.save(Session(null, registeredUser.userId))
-                        return registeredUser
+                        return JwtUtil.generateToken(registeredUser)
                     }
                     else throw LoginException("Wrong password.", HttpStatus.FORBIDDEN)
                 } else throw LoginException("User with that email doesn't exist.", HttpStatus.BAD_REQUEST)

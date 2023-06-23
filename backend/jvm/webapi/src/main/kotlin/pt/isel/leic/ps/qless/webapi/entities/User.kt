@@ -1,6 +1,7 @@
 package pt.isel.leic.ps.qless.webapi.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import io.jsonwebtoken.Header
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
@@ -11,6 +12,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
+import java.util.UUID
 
 /**
  * 
@@ -30,7 +32,7 @@ data class User(
     @get:JsonProperty("email", required = true) val email: kotlin.String,
 
     @Schema(example = "null", required = true, description = "")
-    @get:JsonProperty("password", required = true) var password: kotlin.String,
+    @get:JsonProperty("password", required = true) var password: kotlin.String? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -43,9 +45,9 @@ data class User(
     @Schema(example = "null", description = "")
     @get:JsonProperty("lname") val lname: kotlin.String? = null,
 
-    @OneToMany(cascade = [CascadeType.ALL])
+   /* @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name ="openedBy", referencedColumnName = "userId" )
-    @get:JsonProperty("tickets") val tickets: Set<Ticket>? = null,
+    @get:JsonProperty("tickets") val tickets: Set<Ticket>? = null,*/
 
 ) {
 
@@ -58,6 +60,17 @@ data class User(
         @JsonProperty("USER") USER("USER"),
         @JsonProperty("EMPLOYEE") EMPLOYEE("EMPLOYEE"),
         @JsonProperty("ADMIN") ADMIN("ADMIN")
+    }
+
+    companion object {
+        fun fromToken(header: Header<*>): User {
+            return User(
+                    userId = UUID.fromString(header["userId"] as String),
+                    email = header["email"] as String,
+                    fname = header["fname"] as String,
+                    lname = header["lname"] as String
+            )
+        }
     }
 
 }
