@@ -27,7 +27,6 @@ export function UserHomePage() {
   let navigate = useNavigate();
   const authHeader = useAuthHeader();
   const authUser = useAuthUser();
-  const controller = new AbortController();
 
   const email = authUser()?.email
 
@@ -44,11 +43,8 @@ export function UserHomePage() {
   useEffect(() => {
     const fetchTicketData = async () => {
         if(email != null) {
-            const res1 = await axios.get(`http://localhost:8080/user/${email}`)
-            const userId = res1.data.userId
-            const res2 = await axios.get(`http://localhost:8080/tickets/${userId}`)
+            const res2 = await axios.get(`http://localhost:8080/tickets`, { withCredentials: true })
             const ticketData = processTicketData(res2.data)
-            //localStorage.setItem('tickets', JSON.stringify(ticketData))
             setTickets(ticketData)
         } else console.log("email is null!")
     }
@@ -57,7 +53,7 @@ export function UserHomePage() {
 
 
   function handleNavigation() {
-    navigate(`/createTicket/${authHeader().split(" ")[1]}`);
+    navigate(`/createTicket`);
   }
 
   return (

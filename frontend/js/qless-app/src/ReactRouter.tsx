@@ -74,7 +74,7 @@ function ReactRouter() {
             }
           ></Route>
           <Route
-            path="/createTicket/:qlessId"
+            path="/createTicket"
             element={
               <RequireAuth loginPath="/login">
                 <div>

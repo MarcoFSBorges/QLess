@@ -33,7 +33,7 @@ export function Login() {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data)
         signIn({
           token: res.data,
           tokenType: "Bearer",
