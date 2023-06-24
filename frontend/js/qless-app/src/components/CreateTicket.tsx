@@ -1,27 +1,22 @@
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Stack, MenuItem, Typography, TextField, IconButton, Button} from '@mui/material'
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-
-const categories = [
-    {value: 'CD', label: 'Carimbar documento'},
-    {value:'MT', label: 'Mudança de turma'} ,
-    {value:'CDS', label: 'Candidaturas'},
-    {value:'PP', label: 'Pagamento de propinas'},
-    {value:'PPP', label: 'Pedido de plano de pagamento'},
-    {value:'OT', label: 'Outro'}
-  ];
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function CreateTicket() {
 
-    const [category, setCategory] = useState('');
-    const [comment, setComment] = useState('');
-    const [file, setFile] = useState<File>();
+    const [auxCategoryName, auxSetCategoryName] = useState([]);
 
-    console.log(file)
+    const [categoryName, setCategoryName] = useState("");
+
+    const [comment, setComment] = useState("");
+    const [file, setFile] = useState<File>();
+    let navigate = useNavigate();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCategory(event.target.value);      
+        setCategoryName(event.target.value);      
     };
 
     const handleSubmit = (e: any) => {
@@ -35,6 +30,42 @@ export function CreateTicket() {
       };
 
 
+      const createTicket = () => {
+        axios
+          .post(
+            "http://localhost:8080/tickets",
+            { categoryName, comment },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            alert("Ticket created!");
+            navigate(`/tickets`);
+          })
+          .catch((err) => {
+            console.log(err);
+            alert(err);
+          });
+      };
+      
+
+      function processCategoryName(categoryNameArray:any) {
+        let retArray: any = []
+        for(let categoryName of categoryNameArray.values()) {
+            retArray.push(categoryName.name)
+        }
+        return retArray
+      }
+
+    useEffect(() => {
+        const fetchExistingCategories = async () => {
+                const res = await axios.get(`http://localhost:8080/categories`, { withCredentials: true })
+                const categoryName = processCategoryName(res.data)
+                auxSetCategoryName(categoryName)     
+            } 
+            fetchExistingCategories()
+      }, []);
+
+
     return(
         <>
             <Stack direction='row' justifyContent='normal' spacing={2} paddingTop='150px' paddingLeft='250px'>
@@ -45,17 +76,17 @@ export function CreateTicket() {
                     <TextField
                         label="Category"
                         select
-                        value={category}
+                        value={categoryName}
                         onChange={handleChange}
                         fullWidth
                         sx={{backgroundColor:'white'}}
                     > 
-                    <MenuItem value='CD'>Carimbar documento</MenuItem> 
-                    <MenuItem value='MT'>Mudança de turma</MenuItem> 
-                    <MenuItem value='CDS'>Candidaturas</MenuItem> 
-                    <MenuItem value='PP'>Pagamento de propinas</MenuItem> 
-                    <MenuItem value='PPP'>Pedido de plano de pagamento</MenuItem> 
-                    <MenuItem value='OT'>Outro</MenuItem> 
+                    {
+                        auxCategoryName.map((categoryName : any) => (
+                            <MenuItem value={categoryName}>{categoryName}</MenuItem> 
+                        ))
+                    }
+                    
                     </TextField>
                     <p/>
                     <Typography align='left' variant='body1' fontFamily='monospace' fontSize={15} paddingBottom={1}>Add comment</Typography>
@@ -83,7 +114,7 @@ export function CreateTicket() {
                                 name="[licenseFile]"
                             />
                         </IconButton>
-                        <Button variant='outlined' type='submit' sx={{ border: 1, borderColor: 'black', backgroundColor: "#81c784", color:'black'}}>Create</Button>
+                        <Button onClick={createTicket} variant='outlined' type='submit' sx={{ border: 1, borderColor: 'black', backgroundColor: "#81c784", color:'black'}}>Create</Button>
                     </Stack>
                     <Stack direction='row' paddingTop='15px'>
                         {file && `${file.name} - ${file.type}`}
