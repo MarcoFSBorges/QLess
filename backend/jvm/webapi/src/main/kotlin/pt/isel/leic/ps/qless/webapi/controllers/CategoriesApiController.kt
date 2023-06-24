@@ -68,6 +68,8 @@ class CategoriesApiController(private val categoriesApiService: CategoriesApiSer
             ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Category::class))]) ],
         security = [ SecurityRequirement(name = "basicAuth") ]
     )
+
+    @CrossOrigin(origins = ["http://localhost:5173"], methods = [RequestMethod.GET], allowCredentials = "true")
     @RequestMapping(
         method = [RequestMethod.GET],
         value = ["/categories"],
@@ -87,7 +89,7 @@ class CategoriesApiController(private val categoriesApiService: CategoriesApiSer
     )
     @RequestMapping(
         method = [RequestMethod.GET],
-        value = ["/categories/{categoryId}"],
+        value = ["/category/{categoryId}"],
         produces = ["application/json"]
     )
     fun getCategoryById(

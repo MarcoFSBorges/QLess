@@ -27,7 +27,7 @@ data class TicketPost(
     @get:JsonProperty("create_date", required = true) val createDate: java.time.OffsetDateTime
 ) {
     fun toTicket(): Ticket {
-        return Ticket(categoryId = categoryId,  openedBy = openedBy, createDate = createDate )
+        return Ticket(categoryId = categoryId,  openedBy = openedBy, createDate = createDate)
     }
 
 }

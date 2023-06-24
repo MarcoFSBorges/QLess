@@ -54,6 +54,8 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
             ApiResponse(responseCode = "201", description = "Created", content = [Content(schema = Schema(implementation = Ticket::class))]) ],
         security = [ SecurityRequirement(name = "basicAuth") ]
     )
+
+    @CrossOrigin(origins = ["http://localhost:5173"], methods = [RequestMethod.POST], allowCredentials = "true")
     @RequestMapping(
         method = [RequestMethod.POST],
         value = ["/tickets"],
@@ -64,8 +66,10 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
             @Parameter(description = "Ticket object to be created")
             @Valid
             @RequestBody(required = false)
-            ticketPost: TicketPost?): ResponseEntity<Ticket> {
-        return ResponseEntity.ok(ticketsApiService.createTicket(ticketPost!!))
+            ticketPostInfo: TicketPostInfo?,
+            @CookieValue("qless-cookie")
+            qlessCookie: String): ResponseEntity<Ticket> {
+        return ResponseEntity.ok(ticketsApiService.createTicket(ticketPostInfo, qlessCookie))
     }
 
     @Operation(

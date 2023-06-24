@@ -10,11 +10,10 @@ import pt.isel.leic.ps.qless.webapi.exceptions.TicketsException
 import pt.isel.leic.ps.qless.webapi.models.AttachmentPost
 import pt.isel.leic.ps.qless.webapi.models.MessagePost
 import pt.isel.leic.ps.qless.webapi.models.TicketPost
-import pt.isel.leic.ps.qless.webapi.repositories.AttachmentRepository
-import pt.isel.leic.ps.qless.webapi.repositories.MessageRepository
-import pt.isel.leic.ps.qless.webapi.repositories.TicketRepository
-import pt.isel.leic.ps.qless.webapi.repositories.UserRepository
+import pt.isel.leic.ps.qless.webapi.models.TicketPostInfo
+import pt.isel.leic.ps.qless.webapi.repositories.*
 import pt.isel.leic.ps.qless.webapi.utils.JwtUtil
+import java.time.OffsetDateTime
 import java.util.*
 
 private const val TICKET_ID_DOES_NOT_EXIST = "Ticket Id does not exist"
@@ -25,11 +24,11 @@ private const val ERROR_GETTING_TICKETS = "Error getting tickets"
 
 @Service
 class TicketsApiService(
-        private val userRepository: UserRepository,
         private val ticketRepository: TicketRepository,
+        private val categoryRepository: CategoryRepository,
         private val messageRepository : MessageRepository,
         private val attachmentRepository: AttachmentRepository
-        ) {
+) {
 
 
     fun getAllTickets(cookie: String): List<Any?> {
@@ -42,6 +41,37 @@ class TicketsApiService(
         }catch (exception: Exception){
             throw TicketsException(ERROR_GETTING_TICKETS, HttpStatus.INTERNAL_SERVER_ERROR)
         }
+    }
+
+
+    fun createTicket(ticketPostInfo: TicketPostInfo?, cookie: String): Ticket? {
+
+        if(ticketPostInfo != null) {
+            /*  Decode cookie */
+            /*  Get userId from decoded cookie */
+            val decodedJWTCookie = JwtUtil.validateToken(cookie)
+            val category = categoryRepository.getCategoryByName(ticketPostInfo.categoryName)
+            var saveTicket =
+                    TicketPost(
+                            categoryId = category.categoryId!!,
+                            openedBy = decodedJWTCookie.userId!!,
+                            comment = ticketPostInfo.comment,
+                            createDate = OffsetDateTime.now()
+                    ).toTicket()
+            try{
+                saveTicket = ticketRepository.save(saveTicket)
+            }catch (exception: Exception){
+                throw TicketsException("Error saving ticket",HttpStatus.INTERNAL_SERVER_ERROR)
+            }
+
+            if(saveTicket.ticketId != null){
+                var msgSet = HashSet<Message>()
+                msgSet.add(saveMessage(saveTicket, ticketPostInfo.comment, false))
+                saveTicket.messages = msgSet
+            }
+            return saveTicket
+        }
+        return null
     }
 
     fun createAttachment(ticketId: UUID, attachmentPost: AttachmentPost): Attachment? {
@@ -62,22 +92,6 @@ class TicketsApiService(
         }catch (exception: Exception){
             throw TicketsException(ERROR_SAVING_ATTACHMENT, HttpStatus.INTERNAL_SERVER_ERROR)
         }
-    }
-
-    fun createTicket(ticketPost: TicketPost): Ticket? {
-        var savedTicked : Ticket
-        try{
-            savedTicked = ticketRepository.save(ticketPost.toTicket())
-        }catch (exception: Exception){
-            throw TicketsException("Error saving ticket",HttpStatus.INTERNAL_SERVER_ERROR)
-        }
-
-        if(savedTicked.ticketId != null){
-            var msgSet = HashSet<Message>()
-            msgSet.add(saveMessage(savedTicked, ticketPost.comment, false))
-            savedTicked.messages = msgSet
-        }
-        return savedTicked
     }
 
     private fun saveMessage(savedTicked: Ticket, comment: String, isEmployee: Boolean): Message {
