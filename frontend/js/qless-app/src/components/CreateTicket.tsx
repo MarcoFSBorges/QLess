@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export function CreateTicket() {
 
-    const [auxCategoryName, auxSetCategoryName] = useState([]);
+    const [auxCategory, auxSetCategory] = useState<any[]>([]);
 
     const [categoryName, setCategoryName] = useState("");
 
@@ -30,41 +30,54 @@ export function CreateTicket() {
       };
 
 
-      const createTicket = () => {
-        axios
-          .post(
-            "http://localhost:8080/tickets",
-            { categoryName, comment },
-            { withCredentials: true }
-          )
-          .then((res) => {
-            alert("Ticket created!");
-            navigate(`/tickets`);
-          })
-          .catch((err) => {
-            console.log(err);
-            alert(err);
-          });
-      };
-      
+    function getCategoryId() {
+        for(let category of auxCategory) {
+            if(category.categoryName === categoryName ) return category.categoryId
+        }
+    }
 
-      function processCategoryName(categoryNameArray:any) {
+
+    const createTicket = () => {
+        let categoryId = getCategoryId()
+    axios
+        .post(
+        "http://localhost:8080/tickets",
+        { categoryId, comment },
+        { withCredentials: true }
+        )
+        .then((res) => {
+        alert("Ticket created!");
+        navigate(`/tickets`);
+        })
+        .catch((err) => {
+        console.log(err);
+        alert(err);
+        });
+    };
+    
+
+    function processCategory(categoryArray:any) {
         let retArray: any = []
-        for(let categoryName of categoryNameArray.values()) {
-            retArray.push(categoryName.name)
+        for(let category of categoryArray.values()) {
+            retArray.push(
+                {
+                    categoryId: category.categoryId,
+                    categoryName: category.name
+                }
+                    
+            )
         }
         return retArray
-      }
+    }
 
     useEffect(() => {
         const fetchExistingCategories = async () => {
                 const res = await axios.get(`http://localhost:8080/categories`, { withCredentials: true })
-                const categoryName = processCategoryName(res.data)
-                auxSetCategoryName(categoryName)     
+                const categoryData = processCategory(res.data)
+                auxSetCategory(categoryData)     
             } 
             fetchExistingCategories()
       }, []);
-
 
     return(
         <>
@@ -82,8 +95,8 @@ export function CreateTicket() {
                         sx={{backgroundColor:'white'}}
                     > 
                     {
-                        auxCategoryName.map((categoryName : any) => (
-                            <MenuItem value={categoryName}>{categoryName}</MenuItem> 
+                        auxCategory.map((category : any) => (
+                            <MenuItem value={category.categoryName}>{category.categoryName}</MenuItem> 
                         ))
                     }
                     
