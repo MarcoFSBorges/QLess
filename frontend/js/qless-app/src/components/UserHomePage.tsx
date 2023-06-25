@@ -9,9 +9,11 @@ import {
   List,
   ListItem,
 } from "@mui/material";
+import axios from "axios";
 
-import { useAuthHeader } from "react-auth-kit";
+import { useAuthHeader, useAuthUser } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const ticket_status = [
   { link: "/tickets/:qlessId", label: "Created", bckGrnd: "#90caf9" }, // /tickets/:qlessId?status=created
@@ -24,9 +26,34 @@ const ticket_status = [
 export function UserHomePage() {
   let navigate = useNavigate();
   const authHeader = useAuthHeader();
+  const authUser = useAuthUser();
+
+  const email = authUser()?.email
+
+  const [tickets, setTickets] = useState<any>([]);
+
+  function processTicketData(ticketArray:any) {
+    let retArray: any = []
+    ticketArray.forEach((ticket: any) => {
+      retArray.push({employeeFname: ticket[0], employeeLname: ticket[1], ticketCategory: ticket[2]}) 
+    })
+    return retArray
+  }
+
+  useEffect(() => {
+    const fetchTicketData = async () => {
+        if(email != null) {
+            const res2 = await axios.get(`http://localhost:8080/tickets`, { withCredentials: true })
+            const ticketData = processTicketData(res2.data)
+            setTickets(ticketData)
+        } else console.log("email is null!")
+    }
+    fetchTicketData()
+  }, []);
+
 
   function handleNavigation() {
-    navigate(`/createTicket/${authHeader().split(" ")[1]}`);
+    navigate(`/createTicket`);
   }
 
     return(

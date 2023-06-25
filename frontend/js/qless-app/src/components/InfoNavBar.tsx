@@ -48,7 +48,9 @@ function InfoNavBar(props: any) {
           >
             QLess
           </Typography>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <img src={logo} alt="qless-logo" height={"50px"} />
+          </Box>
           <Typography
             variant="h5"
             noWrap

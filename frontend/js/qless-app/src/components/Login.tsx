@@ -33,7 +33,7 @@ export function Login() {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data)
         signIn({
           token: res.data,
           tokenType: "Bearer",
@@ -41,7 +41,7 @@ export function Login() {
           authState: { email: email },
         });
         alert("Successfully logged in!");
-        navigate(`/tickets/${res.data}`);
+        navigate(`/tickets`);
       })
       .catch((err) => {
         console.log(err);

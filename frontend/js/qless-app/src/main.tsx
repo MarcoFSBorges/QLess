@@ -9,7 +9,7 @@ root.render(
   <React.StrictMode>
     <AuthProvider
       authType={"cookie"}
-      authName={"qless-user"}
+      authName={"qless-cookie"}
       cookieDomain={window.location.hostname}
       cookieSecure={false}
     >
