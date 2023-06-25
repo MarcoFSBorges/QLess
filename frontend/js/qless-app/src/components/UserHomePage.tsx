@@ -1,15 +1,33 @@
-import { Stack, Paper, Card, CardContent, CardActionArea, Button, Typography, List, ListItem} from '@mui/material'
+import {
+  Stack,
+  Paper,
+  Card,
+  CardContent,
+  CardActionArea,
+  Button,
+  Typography,
+  List,
+  ListItem,
+} from "@mui/material";
+
+import { useAuthHeader } from "react-auth-kit";
+import { useNavigate } from "react-router-dom";
 
 const ticket_status = [
-    {link:'/tickets/:qlessId', label:'Created', bckGrnd:'#90caf9'},   // /tickets/:qlessId?status=created
-    {link:'/tickets/:qlessId', label:'Ongoing', bckGrnd:'#ffe082'},   // /tickets/:qlessId?status=ongoing 
-    {link:'/tickets/:qlessId', label:'Solved', bckGrnd:'#c5e1a5'},    // /tickets/:qlessId?status=solved 
-    {link:'/tickets/:qlessId', label:'Cancelled', bckGrnd:'#ef9a9a'}, // /tickets/:qlessId?status=cancelled 
-    {link:'/tickets/:qlessId', label:'Archived', bckGrnd:'#eeeeee'},  // /tickets/:qlessId?status=archived
+  { link: "/tickets/:qlessId", label: "Created", bckGrnd: "#90caf9" }, // /tickets/:qlessId?status=created
+  { link: "/tickets/:qlessId", label: "Ongoing", bckGrnd: "#ffe082" }, // /tickets/:qlessId?status=ongoing
+  { link: "/tickets/:qlessId", label: "Solved", bckGrnd: "#c5e1a5" }, // /tickets/:qlessId?status=solved
+  { link: "/tickets/:qlessId", label: "Cancelled", bckGrnd: "#ef9a9a" }, // /tickets/:qlessId?status=cancelled
+  { link: "/tickets/:qlessId", label: "Archived", bckGrnd: "#eeeeee" }, // /tickets/:qlessId?status=archived
 ];
 
-
 export function UserHomePage() {
+  let navigate = useNavigate();
+  const authHeader = useAuthHeader();
+
+  function handleNavigation() {
+    navigate(`/createTicket/${authHeader().split(" ")[1]}`);
+  }
 
     return(
         <>
