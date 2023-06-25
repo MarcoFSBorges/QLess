@@ -25,7 +25,6 @@ private const val ERROR_GETTING_TICKETS = "Error getting tickets"
 @Service
 class TicketsApiService(
         private val ticketRepository: TicketRepository,
-        private val categoryRepository: CategoryRepository,
         private val messageRepository : MessageRepository,
         private val attachmentRepository: AttachmentRepository
 ) {
@@ -50,10 +49,9 @@ class TicketsApiService(
             /*  Decode cookie */
             /*  Get userId from decoded cookie */
             val decodedJWTCookie = JwtUtil.validateToken(cookie)
-            val category = categoryRepository.getCategoryByName(ticketPostInfo.categoryName)
             var saveTicket =
                     TicketPost(
-                            categoryId = category.categoryId!!,
+                            categoryId = ticketPostInfo.categoryId,
                             openedBy = decodedJWTCookie.userId!!,
                             comment = ticketPostInfo.comment,
                             createDate = OffsetDateTime.now()
