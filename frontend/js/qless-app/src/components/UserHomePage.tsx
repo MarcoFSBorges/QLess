@@ -16,11 +16,11 @@ import {
   import { useState, useEffect } from "react";
   
   const ticket_status = [
-    { link: "/tickets/:qlessId", label: "Created", bckGrnd: "#90caf9" }, // /tickets/:qlessId?status=created
-    { link: "/tickets/:qlessId", label: "Ongoing", bckGrnd: "#ffe082" }, // /tickets/:qlessId?status=ongoing
-    { link: "/tickets/:qlessId", label: "Solved", bckGrnd: "#c5e1a5" }, // /tickets/:qlessId?status=solved
-    { link: "/tickets/:qlessId", label: "Cancelled", bckGrnd: "#ef9a9a" }, // /tickets/:qlessId?status=cancelled
-    { link: "/tickets/:qlessId", label: "Archived", bckGrnd: "#eeeeee" }, // /tickets/:qlessId?status=archived
+    { link: "/ticket/:qlessId", label: "Created", bckGrnd: "#90caf9" }, // /ticket/:qlessId?status=created
+    { link: "/ticket/:qlessId", label: "Ongoing", bckGrnd: "#ffe082" }, // /ticket/:qlessId?status=ongoing
+    { link: "/ticket/:qlessId", label: "Solved", bckGrnd: "#c5e1a5" }, // /ticket/:qlessId?status=solved
+    { link: "/ticket/:qlessId", label: "Cancelled", bckGrnd: "#ef9a9a" }, // /ticket/:qlessId?status=cancelled
+    { link: "/ticket/:qlessId", label: "Archived", bckGrnd: "#eeeeee" }, // /ticket/:qlessId?status=archived
   ];
   
   export function UserHomePage() {

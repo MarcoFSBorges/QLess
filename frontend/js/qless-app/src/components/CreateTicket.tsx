@@ -47,7 +47,7 @@ export function CreateTicket() {
         )
         .then((res) => {
         alert("Ticket created!");
-        navigate(`/tickets`);
+        navigate(`/home`);
         })
         .catch((err) => {
         console.log(err);

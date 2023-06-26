@@ -41,7 +41,7 @@ export function Login() {
           authState: { email: email },
         });
         alert("Successfully logged in!");
-        navigate(`/tickets`);
+        navigate(`/home`);
       })
       .catch((err) => {
         console.log(err);
