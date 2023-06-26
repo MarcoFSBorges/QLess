@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Paper,
   Stack,
@@ -11,6 +12,9 @@ import logo from "../images/QL_1.png";
 import axios from "axios";
 
 export function Signup() {
+
+  let navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -30,6 +34,9 @@ export function Signup() {
       })
       .then((resp) => {
         console.log(resp);
+        alert("Successfully signed up!")
+        navigate(`/login`);
+
       })
       .catch((err) => {
         console.log(err);
