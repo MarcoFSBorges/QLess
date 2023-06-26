@@ -102,136 +102,83 @@ export function UserNavBar() {
     navigate("/login");
   };
 
-  return (
-    <AppBar position="absolute" elevation={0} sx={{ background: "#f2ebc9" }}>
-      <Toolbar>
-        <IconButton
-          id="hamburguer-button"
-          onClick={handleHamburguerClick}
-          size="large"
-          edge="start"
-          aria-controls={openHamburguer ? "hamburguer-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={openHamburguer ? "true" : undefined}
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton>
-        <Stack
-          direction="row"
-          justifyContent="center"
-          height="150px"
-          sx={{ flexGrow: 1 }}
-        >
-          <img src={logo} alt="qless-logo" />
-        </Stack>
-        <IconButton
-          id="profile-button"
-          onClick={handleProfileClick}
-          size="large"
-          edge="end"
-          aria-controls={openProfile ? "profile-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={openProfile ? "true" : undefined}
-          aria-label="profile"
-        >
-          <AccountBoxIcon />
-        </IconButton>
-        <Menu
-          id="hamburguer-menu"
-          anchorEl={anchorElHamburguer}
-          open={openHamburguer}
-          MenuListProps={{ "aria-labelledby": "hamburguer-button" }}
-          onClose={handleHamburguerClose}
-        >
-          {hamburguer_menu.map((option) => (
-            <>
-              <MenuItem key={option.link}>
-                {option.isStatus ? (
-                  <Link
-                    href={option.link}
-                    underline="hover"
-                    textAlign="center"
-                    color="inherit"
-                    fontFamily="monospace"
-                    fontWeight={500}
-                    paddingLeft={1}
-                  >
-                    {option.label}
-                  </Link>
-                ) : (
-                  <Link
-                    href={option.link}
-                    underline="hover"
-                    textAlign="center"
-                    color="inherit"
-                    fontFamily="monospace"
-                    fontWeight={700}
-                  >
-                    {option.label}
-                  </Link>
-                )}
-              </MenuItem>
-              {option.label !== "About" ? <Divider /> : <div />}
-            </>
-          ))}
-        </Menu>
+    return (
+        <AppBar position='absolute' elevation={0} sx={{ background: '#f2ebc9'}}>
+            <Toolbar >
+                <IconButton 
+                    id='hamburguer-button' 
+                    onClick={handleHamburguerClick}
+                    size='large' edge='start' 
+                    aria-controls={openHamburguer ? 'hamburguer-menu' : undefined} aria-haspopup='true' aria-expanded={openHamburguer ? 'true' : undefined} aria-label='menu' 
+                >
+                    <MenuIcon/>
+                </IconButton>
+                <Stack direction='row' justifyContent='center' height='150px' sx={{flexGrow: 1}}>
+                    <img src={logo} alt="qlessLogo"/>
+                </Stack>
+                <IconButton 
+                    id='profile-button'
+                    onClick={handleProfileClick}
+                    size='large' edge='end' 
+                    aria-controls={openProfile ? 'profile-menu' : undefined} aria-haspopup='true' aria-expanded={openProfile ? 'true' : undefined} aria-label='profile'>
+                    <AccountBoxIcon/>
+                </IconButton>
+                <Menu 
+                    id='hamburguer-menu' anchorEl={anchorElHamburguer} open={openHamburguer} 
+                    MenuListProps={{ 'aria-labelledby' : 'hamburguer-button'}}
+                    onClose={handleHamburguerClose}
+                >
+                    {hamburguer_menu.map((option) => (
+                        <>
+                            <MenuItem key={option.link}> 
+                                {
+                                    option.isStatus ? 
+                                        <Link href={option.link} underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontWeight={500} paddingLeft={1}>{option.label}</Link> : 
+                                        <Link href={option.link} underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontWeight={700} >{option.label}</Link>
+                                }
+                            </MenuItem>
+                            {
+                                option.label !== 'About' ? 
+                                    <Divider/> :
+                                    <div/>
+                            }
+                        
+                        </>  
+                    ))}
+                </Menu>
+           
+                <Menu 
+                    id='profile-menu' anchorEl={anchorElProfile} open={openProfile} 
+                    MenuListProps={{ 'aria-labelledby' : 'profile-button'}}
+                    onClose={handleProfileClose}
+                >
+                    <Paper 
+                        elevation={24}
+                        sx={{padding: '16px', width: '45vh'}}
+                    >
+                        <Stack direction='row' justifyContent='center' spacing={1}>
+                            <Typography variant='h5'  fontFamily='monospace' fontSize={25}>First name</Typography>
+                            <Typography variant='h5' fontFamily='monospace' fontSize={25}>Last name</Typography>
+                        </Stack>
+                        <p/>
+                        <Typography align='center' variant='h6' fontFamily='monospace' fontSize={15}>Email</Typography>
+                        <Divider/>
+                        <Stack direction='column' spacing={1}>
+                            <Link onClick={handleClickOpenSettings} underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontSize={20} paddingTop={1}>Settings</Link>
+                            
+                            {
+                                openSettings ? <Settings/> : null
+                            }
+                            
+                            <Link underline='hover' textAlign="center" color='inherit' fontFamily='monospace' fontSize={20}>Logout</Link>
+                        </Stack>
+                    </Paper>
+                </Menu>
+            </Toolbar>
+        </AppBar>
 
-        <Menu
-          id="profile-menu"
-          anchorEl={anchorElProfile}
-          open={openProfile}
-          MenuListProps={{ "aria-labelledby": "profile-button" }}
-          onClose={handleProfileClose}
-        >
-          <Paper elevation={24} sx={{ padding: "16px", width: "45vh" }}>
-            <Stack direction="row" justifyContent="center" spacing={1}>
-              <Typography variant="h5" fontFamily="monospace" fontSize={25}>
-                First name
-              </Typography>
-              <Typography variant="h5" fontFamily="monospace" fontSize={25}>
-                Last name
-              </Typography>
-            </Stack>
-            <p />
-            <Typography
-              align="center"
-              variant="h6"
-              fontFamily="monospace"
-              fontSize={15}
-            >
-              Email
-            </Typography>
-            <Divider />
-            <Stack direction="column" spacing={1}>
-              <Link
-                onClick={handleClickOpenSettings}
-                underline="hover"
-                textAlign="center"
-                color="inherit"
-                fontFamily="monospace"
-                fontSize={20}
-                paddingTop={1}
-              >
-                Settings
-              </Link>
 
-              {openSettings ? <Settings /> : null}
-
-              <Link
-                onClick={logout}
-                underline="hover"
-                textAlign="center"
-                color="inherit"
-                fontFamily="monospace"
-                fontSize={20}
-              >
-                Logout
-              </Link>
-            </Stack>
-          </Paper>
-        </Menu>
-      </Toolbar>
-    </AppBar>
-  );
+        
+           
+    )
 }

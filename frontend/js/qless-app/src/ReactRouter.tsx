@@ -8,15 +8,12 @@ import { ResetPassword } from "./components/ResetPassword";
 import { UserHomePage } from "./components/UserHomePage";
 import { UserNavBar } from "./components/UserNavBar";
 import { CreateTicket } from "./components/CreateTicket";
-
-import {
-  Link as RouterLink,
-  LinkProps as RouterLinkProps,
-} from "react-router-dom";
-import { LinkProps } from "@mui/material/Link";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { forwardRef } from "react";
 import { RequireAuth } from "react-auth-kit";
+import { Stack } from "@mui/material"
+import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
+import { LinkProps } from '@mui/material/Link';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { forwardRef } from 'react';
 
 /**
  * Change href, from MaterialUI, behaviour. The Original specification only
@@ -63,13 +60,15 @@ function ReactRouter() {
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/reset/:resetId" element={<ResetPassword />} />
           <Route
-            path="/tickets"
+            path="/home"
             element={
               <RequireAuth loginPath="/login">
                 <div>
-                  <UserNavBar />
-                  <UserHomePage />
-                </div>
+                  <Stack direction='column' justifyContent='center' alignItems='center' spacing={16}>
+                    <UserNavBar />
+                    <UserHomePage />
+                  </Stack>
+              </div>
               </RequireAuth>
             }
           ></Route>
