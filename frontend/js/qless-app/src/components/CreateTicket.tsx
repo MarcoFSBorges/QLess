@@ -36,16 +36,23 @@ export function CreateTicket() {
         }
     }
 
-
-    const createTicket = () => {
+    const createTicket = async () => {
         let categoryId = getCategoryId()
+        let res =  await axios.get(
+            `http://localhost:8080/states`, {
+                params: {stateName: "Created"},
+                withCredentials: true
+            }
+            
+        )
+        let stateId = res.data.stateId
     axios
         .post(
         "http://localhost:8080/tickets",
-        { categoryId, comment },
+        { categoryId, stateId, comment },
         { withCredentials: true }
         )
-        .then((res) => {
+        .then(() => {
         alert("Ticket created!");
         navigate(`/home`);
         })
