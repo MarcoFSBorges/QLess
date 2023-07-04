@@ -8,5 +8,8 @@ data class TicketPostInfo(
         @get:JsonProperty("categoryId", required = true) val categoryId: java.util.UUID,
 
         @Schema(example = "null", required = true, description = "")
+        @get:JsonProperty("stateId", required = true) val stateId: java.util.UUID,
+
+        @Schema(example = "null", required = true, description = "")
         @get:JsonProperty("comment", required = true) val comment: kotlin.String
 )

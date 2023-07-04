@@ -18,6 +18,9 @@ data class TicketPost(
     @get:JsonProperty("categoryId", required = true) val categoryId: UUID,
 
     @Schema(example = "null", required = true, description = "")
+    @get:JsonProperty("stateId", required = true) val stateId: UUID,
+
+    @Schema(example = "null", required = true, description = "")
     @get:JsonProperty("openedBy", required = true) val openedBy: UUID,
 
     @Schema(example = "null", required = true, description = "")
@@ -27,7 +30,7 @@ data class TicketPost(
     @get:JsonProperty("create_date", required = true) val createDate: java.time.OffsetDateTime
 ) {
     fun toTicket(): Ticket {
-        return Ticket(categoryId = categoryId,  openedBy = openedBy, createDate = createDate)
+        return Ticket(categoryId = categoryId, stateId = stateId,  openedBy = openedBy, createDate = createDate)
     }
 
 }

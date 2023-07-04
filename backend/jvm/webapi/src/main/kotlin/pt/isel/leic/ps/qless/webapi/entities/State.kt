@@ -28,5 +28,8 @@ data class State(
     @Column(name="state_id")
     @get:JsonProperty("stateId") val stateId: java.util.UUID? = null,
 
+    @Schema(example = "null", description = "")
+    @get:JsonProperty("name") val name: kotlin.String? = null,
+
 )
 

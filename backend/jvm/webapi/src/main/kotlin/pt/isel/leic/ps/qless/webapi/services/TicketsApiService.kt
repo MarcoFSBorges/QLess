@@ -52,6 +52,7 @@ class TicketsApiService(
             var saveTicket =
                     TicketPost(
                             categoryId = ticketPostInfo.categoryId,
+                            stateId = ticketPostInfo.stateId,
                             openedBy = decodedJWTCookie.userId!!,
                             comment = ticketPostInfo.comment,
                             createDate = OffsetDateTime.now()
