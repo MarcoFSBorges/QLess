@@ -25,7 +25,7 @@ data class State(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Schema(example = "null", readOnly = true, description = "")
-    @Column(name="state_id")
+    //@Column(name="state_id")
     @get:JsonProperty("stateId") val stateId: java.util.UUID? = null,
 
     @Schema(example = "null", description = "")
