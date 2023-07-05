@@ -35,7 +35,16 @@ import {
     function processTicketData(ticketArray:any) {
       let retArray: any = []
       ticketArray.forEach((ticket: any) => {
-        retArray.push({employeeFname: ticket[0], employeeLname: ticket[1], ticketCategory: ticket[2]}) 
+        retArray.push(
+          {
+            employeeFname: ticket[0], 
+            employeeLname: ticket[1], 
+            ticketCategory: ticket[2], 
+            ticketState: ticket[3], 
+            ticketStateTextColor: ticketStateTextColor(ticket),
+            ticketCreationDate: processTicketDate(ticket[4]),
+            ticketUpdateDate: processTicketDate(ticket[5])
+          }) 
       })
       return retArray
     }
@@ -45,6 +54,7 @@ import {
           if(email != null) {
               const res2 = await axios.get(`http://localhost:8080/tickets`, { withCredentials: true })
               const ticketData = processTicketData(res2.data)
+              console.log(ticketData)
               setTickets(ticketData)
           } else console.log("email is null!")
       }
@@ -55,7 +65,43 @@ import {
     function handleNavigation() {
       navigate(`/createTicket`);
     }
+
+    function processTicketDate(dateStr: string) {
+        if(dateStr != null) return dateStr.replace("T", ' ').split(".").shift()
+        return null
+    }
+
+    console.log(tickets)
   
+    function ticketStateTextColor(ticket: any) {
+        switch(ticket[3]) {
+          case 'Created': {
+            return "#00b0ff"
+          }
+    
+          case 'Ongoing':{
+            return "#ffea00"
+          }
+          
+          case 'Solved':{
+            return "#558b2f"
+          }
+          
+          case 'Cancelled':{
+            return "#c62828"
+          }
+
+          case 'Archived':{
+            return "#a6a6a6"
+          }
+
+          default: { 
+            console.log("error") 
+            break; 
+         } 
+      }
+    }
+
     return (
       <>
         <Stack
@@ -133,15 +179,34 @@ import {
                   <Card sx={{ width: "95%", height: "100px", border: 1 }}>
                     <CardActionArea href="/ticket/:id">
                       <CardContent
-                        sx={{ display: "flex", justifyContent: "center" }}
-                      >
-                        <Typography
-                          variant="h6"
-                          fontFamily="monospace"
-                          fontSize={25}
-                        >
-                          {ticket.ticketCategory}
-                        </Typography>
+                        sx={{ display: "flex", justifyContent:'space-between' }}
+                      > 
+                          <Typography
+                              variant="h6"
+                              fontFamily="monospace"
+                              fontSize={15}     
+                              sx={{color: ticket.ticketStateTextColor, fontWeight: 'bold'}}
+                          >
+                            {ticket.ticketState}
+                          </Typography>
+                          <Typography
+                            variant="h6"
+                            fontFamily="monospace"
+                            fontSize={25}
+                          >
+                            {ticket.ticketCategory}
+                          </Typography>
+
+
+                          <Typography
+                            variant="h6"
+                            fontFamily="monospace"
+                            fontSize={15}
+                          >
+                            {
+                              ticket.ticketUpdateDate == null ? ticket.ticketCreationDate : ticket.ticketUpdateDate
+                            }
+                          </Typography> 
                       </CardContent>
                     </CardActionArea>
                   </Card>
