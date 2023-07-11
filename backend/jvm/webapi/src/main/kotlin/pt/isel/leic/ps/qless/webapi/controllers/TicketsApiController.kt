@@ -182,6 +182,32 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
         return ResponseEntity.ok(ticketsApiService.getAllTickets(qlessCookie))
     }
 
+
+    @Operation(
+            summary = "Retrieve a specific ticket",
+            operationId = "getTicketById",
+            description = """""",
+            responses = [
+                ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Ticket::class))]),
+                ApiResponse(responseCode = "404", description = "Not found") ],
+            security = [ SecurityRequirement(name = "basicAuth") ]
+    )
+
+    @CrossOrigin(origins = ["http://localhost:5173"], methods = [RequestMethod.GET], allowCredentials = "true")
+    @RequestMapping(
+            method = [RequestMethod.GET],
+            value = ["/ticket/{ticketId}"],
+            produces = ["application/json"]
+    )
+    fun getTicketById(
+            @Parameter(description = "ID of ticket to retrieve", required = true)
+            @CookieValue("qless-cookie")
+            qlessCookie: String,
+            @PathVariable("ticketId")
+            ticketId: UUID): ResponseEntity<Any> {
+        return ResponseEntity.ok(ticketsApiService.getTicketById(qlessCookie, ticketId))
+    }
+
     @Operation(
         summary = "Retrieve a specific attachment of a ticket",
         operationId = "getAttachmentById",
@@ -218,29 +244,6 @@ class TicketsApiController(private val ticketsApiService: TicketsApiService) {
             @PathVariable("ticketId")
             ticketId: java.util.UUID): ResponseEntity<List<Attachment>> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
-    }
-
-    @Operation(
-        summary = "Retrieve a specific ticket",
-        operationId = "getTicketById",
-        description = """""",
-        responses = [
-            ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = Ticket::class))]),
-            ApiResponse(responseCode = "404", description = "Not found") ],
-        security = [ SecurityRequirement(name = "basicAuth") ]
-    )
-
-    @CrossOrigin(origins = ["http://localhost:5173"], methods = [RequestMethod.GET], allowCredentials = "true")
-    @RequestMapping(
-        method = [RequestMethod.GET],
-        value = ["/ticket/{ticketId}"],
-        produces = ["application/json"]
-    )
-    fun getTicketById(
-            @Parameter(description = "ID of ticket to retrieve", required = true)
-            @PathVariable("ticketId")
-            ticketId: UUID): ResponseEntity<Ticket> {
-        return ResponseEntity.ok(ticketsApiService.getTicketById(ticketId))
     }
 
     @Operation(

@@ -42,6 +42,20 @@ class TicketsApiService(
         }
     }
 
+    fun getTicketById(cookie: String,  ticketId: UUID): Any? {
+
+        /*  Decode cookie */
+        /*  Get userId from decoded cookie */
+        val decodedJWTCookie = JwtUtil.validateToken(cookie)
+
+        try {
+            val userTicket = ticketRepository.getTicketDetailsForUser(decodedJWTCookie.userId!!, ticketId)
+            return userTicket
+        }catch (exception: Exception){
+            throw TicketsException(ERROR_GETTING_TICKET, HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+
 
     fun createTicket(ticketPostInfo: TicketPostInfo?, cookie: String): Ticket? {
 
@@ -176,16 +190,6 @@ class TicketsApiService(
             return attachmentRepository.findByIdOrNull(attachmentId)
         }catch (exception: Exception){
             throw TicketsException("Error getting Attachment", HttpStatus.INTERNAL_SERVER_ERROR)
-        }
-    }
-
-    fun getTicketById(ticketId: UUID): Ticket? {
-        if(!ticketRepository.existsById(ticketId))
-            throw TicketsException(TICKET_ID_DOES_NOT_EXIST, HttpStatus.NOT_FOUND)
-        try {
-            return ticketRepository.findByIdOrNull(ticketId)
-        }catch (exception: Exception){
-            throw TicketsException(ERROR_GETTING_TICKET, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 
