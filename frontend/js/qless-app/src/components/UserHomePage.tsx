@@ -23,6 +23,41 @@ import {
     { link: "/ticket/:qlessId", label: "Archived", bckGrnd: "#eeeeee" }, // /ticket/:qlessId?status=archived
   ];
   
+
+  export function processTicketDate(dateStr: string) {
+    if(dateStr != null) return dateStr.replace("T", ' ').split(".").shift()
+    return null
+}
+
+
+ export function ticketStateTextColor(ticket: any) {
+  switch(ticket) {
+    case 'Created': {
+      return "#00b0ff"
+    }
+
+    case 'Ongoing':{
+      return "#ffea00"
+    }
+    
+    case 'Solved':{
+      return "#558b2f"
+    }
+    
+    case 'Cancelled':{
+      return "#c62828"
+    }
+
+    case 'Archived':{
+      return "#a6a6a6"
+    }
+
+    default: { 
+      break; 
+   } 
+}
+}
+
   export function UserHomePage() {
     let navigate = useNavigate();
     const authHeader = useAuthHeader();
@@ -41,9 +76,10 @@ import {
             employeeLname: ticket[1], 
             ticketCategory: ticket[2], 
             ticketState: ticket[3], 
-            ticketStateTextColor: ticketStateTextColor(ticket),
+            ticketStateTextColor: ticketStateTextColor(ticket[3]),
             ticketCreationDate: processTicketDate(ticket[4]),
-            ticketUpdateDate: processTicketDate(ticket[5])
+            ticketUpdateDate: processTicketDate(ticket[5]),
+            ticketId: ticket[6]
           }) 
       })
       return retArray
@@ -54,7 +90,6 @@ import {
           if(email != null) {
               const res2 = await axios.get(`http://localhost:8080/tickets`, { withCredentials: true })
               const ticketData = processTicketData(res2.data)
-              console.log(ticketData)
               setTickets(ticketData)
           } else console.log("email is null!")
       }
@@ -66,41 +101,6 @@ import {
       navigate(`/createTicket`);
     }
 
-    function processTicketDate(dateStr: string) {
-        if(dateStr != null) return dateStr.replace("T", ' ').split(".").shift()
-        return null
-    }
-
-    console.log(tickets)
-  
-    function ticketStateTextColor(ticket: any) {
-        switch(ticket[3]) {
-          case 'Created': {
-            return "#00b0ff"
-          }
-    
-          case 'Ongoing':{
-            return "#ffea00"
-          }
-          
-          case 'Solved':{
-            return "#558b2f"
-          }
-          
-          case 'Cancelled':{
-            return "#c62828"
-          }
-
-          case 'Archived':{
-            return "#a6a6a6"
-          }
-
-          default: { 
-            console.log("error") 
-            break; 
-         } 
-      }
-    }
 
     return (
       <>
@@ -177,7 +177,7 @@ import {
                   sx={{ justifyContent: "center" }}
                 >
                   <Card sx={{ width: "95%", height: "100px", border: 1 }}>
-                    <CardActionArea href="/ticket/:id">
+                    <CardActionArea  href={`/ticket/${ticket.ticketId}`}>
                       <CardContent
                         sx={{ display: "flex", justifyContent:'space-between' }}
                       > 

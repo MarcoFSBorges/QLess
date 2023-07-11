@@ -17,6 +17,7 @@ import { LinkProps } from "@mui/material/Link";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { forwardRef } from "react";
 import { RequireAuth } from "react-auth-kit";
+import { UserTicketDetails } from "./components/UserTicketDetails";
 
 /**
  * Change href, from MaterialUI, behaviour. The Original specification only
@@ -80,6 +81,17 @@ function ReactRouter() {
                 <div>
                   <UserNavBar />
                   <CreateTicket />
+                </div>
+              </RequireAuth>
+            }
+          ></Route>
+          <Route
+            path="/ticket/:ticketId"
+            element={
+              <RequireAuth loginPath="/login">
+                <div>
+                  <UserNavBar />
+                  <UserTicketDetails />
                 </div>
               </RequireAuth>
             }
